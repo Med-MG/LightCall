@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import ShippingCompanyForm from '../features/shippingCompany/ShippingCompantForm';
 import ShippingCompanyList from '../features/shippingCompany/ShippingCompanyList';
 
-const City = () => {
+const ShippingCompany = () => {
     const location = useLocation();
     return (
         <div className="main-content">
@@ -21,4 +21,4 @@ const City = () => {
     )
 }
 
-export default City
+export default ShippingCompany

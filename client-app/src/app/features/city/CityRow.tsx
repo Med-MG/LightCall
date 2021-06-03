@@ -20,7 +20,7 @@ function CityRow() {
                          <td>{city.zipCode}</td>
                         <td>
                             <div>
-                                <Link to="/city/Editcity" onClick={()=> selectCity(city.id) } className="btn btn-info mr-2" >Edit</Link>
+                                <Link to="/cities/Editcity" onClick={()=> selectCity(city.id) } className="btn btn-info mr-2" >Edit</Link>
                                 <button className="btn btn-danger" onClick={()=> deleteCity(city.id) } >Delete</button>
                             </div>
                         </td>
