@@ -28,7 +28,7 @@ const SideBarMember = () => {
                 <Link to="/whatsappTemplate" className="nav-link" id="whatsappTemplate" ><i className="fas fa-user-secret"></i> <span>Whatsapp Template</span></Link>
             </li>
             <li className="">
-                <Link to="/smsCampaign" className="nav-link" id="smsCampaign" ><i className="fas fa-user-secret"></i> <span>SMS</span></Link>
+                <Link to="/smsCampaign" className="nav-link" id="smsCampaign" ><i className="fas fa-sms"></i> <span>SMS</span></Link>
             </li>
             <li className="">
                 <Link to="/ivruser" className="nav-link" id="ivruser" ><i className="fas fa-user-secret"></i> <span>IVR System</span></Link>

@@ -232,7 +232,7 @@ return (
                 </Link>
                 <div className="dropdown-menu dropdown-menu-right">
                     <div className="dropdown-title">Logged in 5 min ago</div>
-                    <Link to="features-profile.html" className="dropdown-item has-icon">
+                    <Link to="/user/profile" className="dropdown-item has-icon">
                         <i className="far fa-user"></i> Profile
                     </Link>
                     <Link to="features-activities.html" className="dropdown-item has-icon">

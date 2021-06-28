@@ -15,8 +15,6 @@ import Status from './Status'
 import Orders from './Orders'
 import Projects from './Projects'
 import Operator from './Operator'
-import Product from './Product';
-import Upsell from './Upsell';
 import AdminLayout from './AdminLayout';
 import OperatorLayout from '../features/Operator/OperatorLayout';
 import PrivateAdminRoute from '../security/PrivateAdminRoute';
@@ -32,6 +30,7 @@ import ServerError from './../features/errors/ServerError';
 import ModalContainer from '../common/modals/ModalContainer';
 import ProjectsList from '../features/project/ProjectsList';
 import ProjectForm from '../features/project/ProjectForm';
+import Profile from '../features/CommonFeatures/Profile';
 
 
 function App() {
@@ -108,6 +107,7 @@ function App() {
                   <PublicRoute path="/user/orders" component={Orders}  />
                   <PublicRoute path="/user/projects" component={Projects}   />  
                   <Route path="/user/errTest" component={TestError} />
+                  <Route path="/user/profile" component={Profile} />
                   <Route path="*" >
                     <Redirect to="/404" />
                   </Route> 
