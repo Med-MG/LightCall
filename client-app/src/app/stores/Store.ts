@@ -11,6 +11,7 @@ import LayoutStore from './LayoutStore';
 import ProductStore from './ProductStore';
 import UpSellStore from "./UpSellStore";
 import ModalStore from './modalStore';
+import ProfileStore from './ProfileStore';
 
 interface Store {
     commonStore: CommonStore
@@ -25,6 +26,7 @@ interface Store {
     productStore: ProductStore
     upsellStore : UpSellStore
     modalStore: ModalStore
+    profileStore: ProfileStore
 }
 
 export const store : Store = {
@@ -39,7 +41,8 @@ export const store : Store = {
     layoutStore: new LayoutStore(),
     productStore: new ProductStore(),
     upsellStore : new UpSellStore(),
-    modalStore: new ModalStore()
+    modalStore: new ModalStore(),
+    profileStore: new ProfileStore()
 
 }
 
