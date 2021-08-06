@@ -7,8 +7,6 @@ using System.IO;
 using System.Web;
 using System.Linq;
 using System.Threading.Tasks;
-
-
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using Persistence;
@@ -101,6 +99,25 @@ namespace API.Controllers
         }
 
 
+        [HttpGet]
+        [Route("statistic")]
+        public async Task<ActionResult<OrderStatistic>> GetOrdersStatics()
+        {
+
+            var statistics = new OrderStatistic();
+
+            var query =  _context.Orders.Include(o => o.Status);
+
+            statistics.orders =  query.Count();
+            statistics.ordersConfirmer = query.Where(o => o.Status.StatusType == "confirmer" ).Count();
+            statistics.ordersNew = query.Where(o => o.Status.StatusType == "new order" ).Count();
+            statistics.ordersLivrer = query.Where(o => o.Status.StatusType == "livrer").Count();
+
+            return statistics;
+
+
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(Guid id)
         {
@@ -143,12 +160,12 @@ namespace API.Controllers
 
 
         [HttpPost("Shopify/{id}")]
-        public async Task<IActionResult> ShopifyOrder(Guid id  , ShopifyOrderDto shopifyOrder )
+        public async Task<IActionResult> ShopifyOrder(Guid id, ShopifyOrderDto shopifyOrder)
         {
 
-     
 
-            Project project = _context.Projects.FindAsync(id).Result ;
+
+            Project project = _context.Projects.FindAsync(id).Result;
 
             Domain.Customer customer = new Domain.Customer
             {
@@ -189,11 +206,11 @@ namespace API.Controllers
             });
 
             order.Product = products;
-            
-         
-       
+
+
+
             await _context.Orders.AddAsync(order);
-            await _context.SaveChangesAsync() ;
+            await _context.SaveChangesAsync();
 
             return Ok();
 
@@ -203,9 +220,6 @@ namespace API.Controllers
         [Route("WooCommerce/{id}")]
         public async Task<IActionResult> WooCommerceOrder(Guid id, WooCommerceDto WooCommerceOrder)
         {
-
-
-
             Project project = _context.Projects.FindAsync(id).Result;
 
             Domain.Customer customer = new Domain.Customer

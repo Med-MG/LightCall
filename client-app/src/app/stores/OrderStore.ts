@@ -3,6 +3,7 @@ import agent from '../api/agent';
 
 import { v4 as uuid } from 'uuid';
 import { Order } from '../models/Order';
+import { Statistic } from '../models/Statistic';
 
 export default class OrderStore {
 
@@ -12,6 +13,7 @@ export default class OrderStore {
     loading = false;
     loadingInitial = false;
     assignedOrder: Order | undefined = undefined;
+    statistics : Statistic | undefined = undefined;
 
     constructor() {
         makeAutoObservable(this)
@@ -34,6 +36,21 @@ export default class OrderStore {
                 this.ordersRegistry.set(order.id, order);
             })
             
+            this.setLoadingInitial(false)
+
+        } catch (error) {
+            console.log(error)
+            this.setLoadingInitial(false)
+        }
+
+    }
+
+    loadOrdersStatistic = async () => {
+
+        this.setLoadingInitial(true)
+        try {
+            this.statistics  = await agent.Orders.Statistic();
+
             this.setLoadingInitial(false)
 
         } catch (error) {

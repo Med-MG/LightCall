@@ -9,13 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-<<<<<<< HEAD:Persistence/Migrations/20210615083526_ThirdSprintMigration.Designer.cs
-    [Migration("20210615083526_ThirdSprintMigration")]
-    partial class ThirdSprintMigration
-=======
-    [Migration("20210616105153_upsell")]
-    partial class upsell
->>>>>>> FirstSecBranch:Persistence/Migrations/20210616105153_upsell.Designer.cs
+    [Migration("20210805194049_statistic")]
+    partial class statistic
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -238,11 +233,7 @@ namespace Persistence.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
-<<<<<<< HEAD:Persistence/Migrations/20210615083526_ThirdSprintMigration.Designer.cs
-                    b.Property<Guid?>("upsell_IdId")
-=======
                     b.Property<Guid?>("upsellId")
->>>>>>> FirstSecBranch:Persistence/Migrations/20210616105153_upsell.Designer.cs
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -253,11 +244,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-<<<<<<< HEAD:Persistence/Migrations/20210615083526_ThirdSprintMigration.Designer.cs
-                    b.HasIndex("upsell_IdId");
-=======
                     b.HasIndex("upsellId");
->>>>>>> FirstSecBranch:Persistence/Migrations/20210616105153_upsell.Designer.cs
 
                     b.ToTable("Products");
                 });
@@ -566,15 +553,6 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
-<<<<<<< HEAD:Persistence/Migrations/20210615083526_ThirdSprintMigration.Designer.cs
-                    b.HasOne("Domain.Upsell", "upsell_Id")
-                        .WithMany("Product_ids")
-                        .HasForeignKey("upsell_IdId");
-
-                    b.Navigation("Project");
-
-                    b.Navigation("upsell_Id");
-=======
                     b.HasOne("Domain.Upsell", "upsell")
                         .WithMany("Product_ids")
                         .HasForeignKey("upsellId");
@@ -582,7 +560,6 @@ namespace Persistence.Migrations
                     b.Navigation("Project");
 
                     b.Navigation("upsell");
->>>>>>> FirstSecBranch:Persistence/Migrations/20210616105153_upsell.Designer.cs
 
                     b.Navigation("User");
                 });

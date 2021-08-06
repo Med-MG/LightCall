@@ -12,6 +12,7 @@ import { Product } from '../models/Product';
 import { UpSell } from '../models/UpSell';
 import { toast } from 'react-toastify';
 import { history } from '../..';
+import { Statistic } from '../models/Statistic';
 
 
 const sleep = (delay: number) => {
@@ -77,6 +78,7 @@ const requests = {
 
 const Orders = {
     list: () => requests.get<Order[]>('/Order'),
+    Statistic: () => requests.get<Statistic>('/Order/statistic'),
     details: (id: string) => requests.get<Order>(`/Order/${id}`),
     create: (order: Order) => requests.post<void>('/Order', order),
     update: (order: Order) => requests.put<void>(`/Order/${order.id}`, order),
