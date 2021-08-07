@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useStore } from './../stores/Store';
+import { useLocation } from 'react-router-dom';
 
 const Header = () => {
 
     const {userStore: {user, logout}} = useStore();
-
+    const location = useLocation();
     const sidebarBtn = () => {
         document.body.classList.toggle('sidebar-mini');
 
@@ -227,12 +228,12 @@ return (
             </li>
             <li className="dropdown"><Link to="#" data-toggle="dropdown"
                     className="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                    <img alt="avatar us1" src="../assets/img/avatar/avatar-1.png" className="rounded-circle mr-1"/>
+                    <img alt="avatar us1" src="/assets/img/avatar/avatar-1.png" className="rounded-circle mr-1"/>
                     <div className="d-sm-none d-lg-inline-block">{`${user?.firstName} ${user?.lastName}`}</div>
                 </Link>
                 <div className="dropdown-menu dropdown-menu-right">
                     <div className="dropdown-title">Logged in 5 min ago</div>
-                    <Link to="/user/profile" className="dropdown-item has-icon">
+                    <Link to={`${location.pathname}/profile`} className="dropdown-item has-icon">
                         <i className="far fa-user"></i> Profile
                     </Link>
                     <Link to="features-activities.html" className="dropdown-item has-icon">

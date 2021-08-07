@@ -1,12 +1,24 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { history } from '../../..';
 import { useStore } from './../../stores/Store';
 import BreadCrums from './../../common/BreadCrums/BreadCrums';
 import PersonalInformation from './PersonalInformation';
+import SecuritySettings from './SecuritySettings';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Profile = () => {
     const {userStore: {user}} = useStore();
+    const [currentSelect, setcurrentSelect] = useState<string>("");
+
+    const handleProfileMenu = (menuItem: string) => {
+        setcurrentSelect(menuItem);
+    }
+    
+    useEffect(() => {
+        setcurrentSelect("profile");
+    }, [])
     return (
         <div className="main-content">
             <div className="section">
@@ -29,7 +41,7 @@ const Profile = () => {
                             <div className="card author-box card-primary">
                                 <div className="card-body">
                                     <div className="author-box-left">
-                                        <img alt="profile" src="../assets/img/avatar/avatar-1.png" className="rounded-circle author-box-picture"/>
+                                        <img alt="profile" src="/assets/img/avatar/avatar-1.png" className="rounded-circle author-box-picture"/>
                                         <div className="clearfix"></div>
                                     </div>
                                     <div className="author-box-details">
@@ -49,17 +61,20 @@ const Profile = () => {
                                 </div>
                                 <div className="card-body">
                                     <ul className="nav nav-pills flex-column">
-                                    <li className="nav-item">
-                                        <Link to="" className="nav-link active"><i className="fas fa-user-cog"></i> Personal Information</Link>
-                                    </li>
-                                    <li className="nav-item"><Link to="" className="nav-link"><i className="fas fa-shield-alt"></i> Security Settings</Link></li>
-                                    <li className="nav-item"><Link to="" className="nav-link"><i className="fas fa-bell"></i> Notifications</Link></li>
-                                    <li className="nav-item"><Link to="" className="nav-link"><i className="fas fa-diagnoses"></i> Account Activity</Link></li>
+                                    <li className="nav-item" ><Link to="#" onClick={()=>{ handleProfileMenu("profile") }}  className={`nav-link ${currentSelect === "profile" ? "active" : ""}`}><i className="fas fa-user-cog"></i> Personal Information</Link></li>
+                                    <li className="nav-item" ><Link to="#" onClick={()=>{ handleProfileMenu("SecuritySettings") }}className={`nav-link ${currentSelect === "SecuritySettings" ? "active" : ""}`} ><i className="fas fa-shield-alt"></i> Security Settings</Link></li>
+                                    <li className="nav-item" ><Link to="#" onClick={()=>{ handleProfileMenu("Notifications") }} className={`nav-link ${currentSelect === "Notifications" ? "active" : ""}`} ><i className="fas fa-bell"></i> Notifications</Link></li>
+                                    <li className="nav-item" ><Link to="#" onClick={()=>{ handleProfileMenu("Activity") }} className={`nav-link ${currentSelect === "Activity" ? "active" : ""}`}><i className="fas fa-diagnoses"></i> Account Activity</Link></li>
+                                    
+                                    {/* <li className="nav-item" ><Link to="#" onClick={} ></Link></li> */}
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <PersonalInformation />
+
+                      {currentSelect === "profile" && <PersonalInformation/>}
+                      {currentSelect === "SecuritySettings" && <SecuritySettings/>}
+                      
                     </div>
                 </div>
                 

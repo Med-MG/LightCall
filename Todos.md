@@ -66,21 +66,37 @@ youcan
 woocommerce
 google leads
 
--[] Operator
+- [ ] Operator
     - renner@gmail.com
     - Pa$$w0rd
--[] Admin
+- [ ] Admin
     - admin@gmail.com
     - _AStrong12P@ssword!
--[] Member
+- [ ] Member
     - med@gmail.com
     - Pa$$w0rd 
   
 # My Todo's this week 
  - [x] Fix the routing
- - [ ] create the profile Edit page
  - [ ] Integrate the photo upload funtionality
  - [ ] Create Devis Technique & Financier Desktop APP
  - [ ] create the Whatsapp template page
  - [ ] Statistics
  - [ ] IVR Page have a minimum funtionality available
+ # My Todo's this weekEnd 
+ - [x] put the profile page ui TOGETHER
+ - [x] bread crums
+ - [ ] React chart js
+Personal Information
+Security Settings
+
+
+
+Date Format and Currency
+Intl.DateTimeFormat() 
+(new Intl.NumberFormat('ma-MA', { style: 'currency', currency: 'MAD' }).format(number));
+
+
+d-m-y (29-06-2021)
+d/m/y (29/06/2021)
+d M Y (29 jun 2021)

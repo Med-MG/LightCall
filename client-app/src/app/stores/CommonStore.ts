@@ -3,7 +3,7 @@ import jwt_decode, { JwtPayload } from "jwt-decode";
 import { ServerError } from './../models/ServerError';
 
 export default class CommonStore  {
-    error: ServerError | null = null;
+   error: ServerError | null = null;
    token: string | null = window.localStorage.getItem('jwt');
    appLoaded = false;
 
@@ -57,7 +57,7 @@ export default class CommonStore  {
             
             
             Roles = Decoded.role;
-            console.log("teeet"+ Roles);
+            // console.log("teeet"+ Roles);
             // console.log(Roles);
             
         }

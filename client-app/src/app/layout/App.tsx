@@ -46,6 +46,7 @@ function App() {
 
   if(!appLoaded) return( <div className='d-flex justify-content-center' > <Lottie  animationData={loaderAnimation} /> </div>)
 
+  
   return (
     <>
     <ToastContainer 
@@ -67,19 +68,20 @@ function App() {
           <Route path='/login' component={LoginPage} />
           <Route path='/RestrictedAccess' component={Page403} />
           <Route path='/server-error' component={ServerError} />
-
+          
           <Route path='/admin/:path?' exact>
               <AdminLayout>
                 <Switch>
                   <PrivateAdminRoute path='/admin' exact component={Main} />
                   <PrivateAdminRoute path='/admin/settings' component={Main} />
-                  <PrivateAdminRoute path='/admin/profile' component={Main} />
                   <PrivateAdminRoute path="/admin/orders" component={Orders}  />
                   <PrivateAdminRoute path="/admin/projects" component={ProjectsList}  />
                   <PrivateAdminRoute path="/admin/projForm" component={ProjectForm}  />
                   <PrivateAdminRoute path="/admin/status" component={Status}/>
                   <PrivateAdminRoute path="/operateur" component={Operator}/>  
                   <PrivateAdminRoute path='/admin/manageOperators' component={ManageOperator} />
+                  <PrivateAdminRoute path='/admin/profile' component={Profile} />
+                  
                   <Route path="*" >
                     <Redirect to="/404" />
                   </Route> 
@@ -113,9 +115,9 @@ function App() {
                   </Route> 
                 </Switch>
               </AdminLayout>
-              <Route path="/404" exact component={NotFound404} />
+              {/* <Route path="/404" exact component={NotFound404} /> */}
           </Route>
-
+          
           <Route >
             <Switch>
                 <Route path="/404"  component={NotFound404} />
@@ -129,7 +131,7 @@ function App() {
                   <Redirect to="/404" />
             </Switch>
           </Route> */}
-          {/* <Route  path='*' exact={true}  component={NotFound404} /> */}
+          {/* <Route path='*' exact  component={NotFound404} /> */}
 
 
 

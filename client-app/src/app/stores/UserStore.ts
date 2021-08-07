@@ -13,9 +13,8 @@ export default class UserStore {
     }
 
     get isLoggedIn() {
-        console.log(this.user);
-        
-        console.log(!!this.user);
+        // console.log(this.user);
+        // console.log(!!this.user);
         return !!this.user;
         
     }
@@ -68,7 +67,7 @@ export default class UserStore {
             const user = await agent.Account.current()
             runInAction(() => {
                 this.user = user;
-                console.log(!!this.user + " in getuser");
+                // console.log(!!this.user + " in getuser");
             });
         } catch (error) {
             console.log(error);
