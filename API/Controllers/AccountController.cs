@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Services;
+using Application.Interfaces;
 using AutoMapper;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -23,12 +24,14 @@ namespace API.Controllers
         private readonly SignInManager<AppUser> _singnInManager;
         private readonly TokenService _tokenService;
         private readonly IMapper _mapper;
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> singnInManager, TokenService tokenService, IMapper mapper)
+        private readonly IUserAccessor _userAccessor;
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> singnInManager, TokenService tokenService, IMapper mapper, IUserAccessor userAccessor )
         {
             _mapper = mapper;
             _tokenService = tokenService;
             _singnInManager = singnInManager;
             _userManager = userManager;
+            _userAccessor = userAccessor;
         }
         [AllowAnonymous]
         [HttpPost("login")]
@@ -85,6 +88,22 @@ namespace API.Controllers
             return BadRequest("Problem registering user");
         }
 
+        [HttpPut]
+        public async Task<ActionResult<UserDto>> UpdateProfile(ProfileDto profileDto)
+        {
+            var user = await _userManager.FindByEmailAsync(_userAccessor.GetUserEmail());
+
+            _mapper.Map(profileDto, user);
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest("Problem updating your profile");
+        }
         
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
@@ -113,9 +132,12 @@ namespace API.Controllers
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Address = user.Address,
                 Image = null,
                 Token = await _tokenService.CreateToken(user),
-                Username = user.UserName
+                UserName = user.UserName
             };
         }
 

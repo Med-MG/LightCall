@@ -12,6 +12,7 @@ import { Product } from '../models/Product';
 import { UpSell } from '../models/UpSell';
 import { toast } from 'react-toastify';
 import { history } from '../..';
+import { ProfileFormValues } from './../models/User';
 
 
 const sleep = (delay: number) => {
@@ -146,7 +147,8 @@ const ShippingCompany = {
 const Account = {
     current: () => requests.get<User>('/account'),
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
-    register: (user: UserFormValues) => requests.post<User>('/account/register', user)
+    register: (user: UserFormValues) => requests.post<User>('/account/register', user),
+    updateProfile: (profile: ProfileFormValues) => requests.put<User>('/account', profile)
 }
 
 const agent = {

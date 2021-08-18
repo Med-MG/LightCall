@@ -3,11 +3,14 @@ import agent from "../api/agent";
 import { history } from "../..";
 import { User, UserFormValues } from "../models/User";
 import { store } from "./Store";
+import { ProfileFormValues } from './../models/User';
+import { toast } from 'react-toastify';
 
 export default class UserStore {
     
     user: User | null = null;
-
+    loading = false;
+    lodingInitiale = false;
     constructor() {
         makeAutoObservable(this)
     }
@@ -72,6 +75,19 @@ export default class UserStore {
         } catch (error) {
             console.log(error);
             
+        }
+    }
+
+    updateProfile = async (profile: ProfileFormValues) => {
+        this.loading = true;
+        try {
+            await agent.Account.updateProfile(profile);
+            runInAction(() => {
+                 this.getUser();
+                 toast.success('profile updated successfully')
+            })
+        } catch (error) {
+            throw error;
         }
     }
 

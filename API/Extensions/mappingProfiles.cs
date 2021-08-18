@@ -9,6 +9,7 @@ namespace API.Extensions
         public mappingProfiles()
         {
             CreateMap<AppUser, ProfileDto>();
+            CreateMap<ProfileDto, AppUser>();
         }
     }
 }

@@ -78,15 +78,15 @@ google leads
   
 # My Todo's this week 
  - [x] Fix the routing
- - [ ] Integrate the photo upload funtionality
- - [ ] Create Devis Technique & Financier Desktop APP
- - [ ] create the Whatsapp template page
- - [ ] Statistics
- - [ ] IVR Page have a minimum funtionality available
+ - [x] Integrate the photo upload funtionality
+ - [x] Create Devis Technique & Financier Desktop APP
+ - [x] create the Whatsapp template page
+ - [x] Statistics
+ - [x] IVR Page have a minimum funtionality available
  # My Todo's this weekEnd 
  - [x] put the profile page ui TOGETHER
  - [x] bread crums
- - [ ] React chart js
+ - [x] React chart js
 Personal Information
 Security Settings
 

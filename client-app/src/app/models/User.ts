@@ -3,6 +3,8 @@ export interface User  {
 	firstName: string;
 	lastName: string;
     email: string;
+    phoneNumber: string;
+    address: string;
     token: string;
     roles: string[];
     skypeId: string;
@@ -17,6 +19,15 @@ export interface UserFormValues {
     password: string;
     email: string;
     skypeId?: string;
+}
+
+export interface ProfileFormValues {
+    userName?: string;
+	firstName?: string;
+	lastName?: string;
+    email?: string;
+    phoneNumber?: string;
+    address?: string;
 }
 
 

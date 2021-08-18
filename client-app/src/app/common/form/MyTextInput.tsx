@@ -10,7 +10,8 @@ interface Props {
     type?:string,
     label?: string,
     dataIndicator?: string,
-    tabIndex?: number
+    tabIndex?: number,
+    validfeedback?: boolean
 }
 
 const MyTextInput = (props: Props) => {
@@ -18,15 +19,23 @@ const MyTextInput = (props: Props) => {
     return (
       <>
         <label htmlFor={props.name} className="d-block">{props.label}</label>
-        <Field 
+        <Field
         id={props.id}
         {...field} 
         {...props} 
         className={`form-control ${props.className} ${meta.error && meta.touched && "is-invalid"} ${!meta.error && meta.touched && "is-valid"}`}  
         data-indicator={props.dataIndicator}
+        
          />
         {meta.error && meta.touched && (<div className="invalid-feedback">{meta.error}</div>)}
-        {!meta.error && meta.touched && ((<div className="valid-feedback">Good job!</div>))}
+        
+        {
+          () => {
+            if(props.validfeedback){
+              !meta.error && meta.touched && ((<div className="valid-feedback">Good job!</div>))}
+            }
+        }
+        
       </>
     )
 }
