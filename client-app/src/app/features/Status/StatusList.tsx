@@ -5,6 +5,8 @@ import {  useStore } from '../../stores/Store'
 import StatusRow from './StatusRow';
 import Lottie from 'lottie-react';
 import loaderAnimation from "../../assets/loader.json";
+import Popup from 'reactjs-popup';
+import StatusForm from './StatusForm';
 
 
 function StatusList() {
@@ -21,7 +23,10 @@ if(statusStore.loadingInitial) return( <div className='d-flex justify-content-ce
 
     return (
         <div>
-                   <Link to="/Status/AddStatus" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add Status  </Link>
+          <Popup position='center center' className="status"  trigger={()=>  {statusStore.canselSelectedStatus();  return(<button  className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add Status  </button>)}} >
+            <StatusForm  />
+          </Popup>
+                   
          <div className="card mt-4">
 
                   <div className="card-body">
@@ -44,6 +49,8 @@ if(statusStore.loadingInitial) return( <div className='d-flex justify-content-ce
                   </div>
                
                 </div>  
+
+
         </div>
     );
 }

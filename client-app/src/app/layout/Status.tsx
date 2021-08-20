@@ -10,13 +10,9 @@ const Main = () => {
       <section className="section">
         <div className="section-header">
           <h1>Status</h1>
-          <IdleTimerContainer></IdleTimerContainer>
+          
         </div>
-        <Switch>
-          <Route exact path="/Status" component={StatusList} />
-          <Route exact path="/Status/AddStatus" component={StatusForm} />
-          <Route exact path="/Status/EditStatus" component={StatusForm} />
-        </Switch>
+      <StatusList/>
       </section>
     </div>
   )

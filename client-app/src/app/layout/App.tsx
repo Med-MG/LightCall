@@ -94,6 +94,8 @@ function App() {
                 <Switch>
                   <PrivateOperatorRoute path='/operator' exact component={OperatorDashoard} />
                   <PrivateOperatorRoute path='/operator/settings' component={OperatorDashoard} />
+                  <PrivateOperatorRoute path="/operator/status" component={Status}/>
+
                   <Route path="*" >
                     <Redirect to="/404" />
                   </Route> 

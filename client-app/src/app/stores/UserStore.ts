@@ -16,10 +16,14 @@ export default class UserStore {
     }
 
     get isLoggedIn() {
+<<<<<<< HEAD
         // console.log(this.user);
         // console.log(!!this.user);
+=======
+
+>>>>>>> f57401e8b53d98cf8b9e149de65e878256cc334d
         return !!this.user;
-        
+
     }
 
     

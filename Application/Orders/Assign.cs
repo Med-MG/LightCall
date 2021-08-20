@@ -19,7 +19,7 @@ namespace Application.Orders
         public class Query : IRequest<Result<Order>>
         {
            
-
+         
         }
 
         public class Handler : IRequestHandler<Query, Result<Order>>
@@ -51,13 +51,14 @@ namespace Application.Orders
                     {
 
                         var order = await _context.Orders.Include(o => o.Status).Include(o => o.Operators).Include(o => o.Customer).Include(o => o.Product).OrderBy(o => o.Status.StatusPiority).FirstOrDefaultAsync();
+                        order.Operators ??= new List<OperatorAcc>();
+
                         if (!order.Operators.Contains(Operator))
-                        {
-                            order.Operators ??= new List<OperatorAcc>();
+                        { 
                             order.Operators.Add(Operator);
 
                         }
-                       
+                        
                         Operator.AssignOrderId = order.Id.ToString();
                         await _context.SaveChangesAsync();
                         return Result<Order>.Success(order);

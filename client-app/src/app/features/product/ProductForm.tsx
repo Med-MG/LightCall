@@ -32,9 +32,10 @@ export default observer(function ProductForm(){
     })
 
     useEffect(()=>{
-      projectStore.loadOrders()
+      projectStore.loadProjects()
     } , [projectStore])
 
+    
     const onchange  = (e : any)=>{
       console.log(e.value) 
         prjSelected = e.value;

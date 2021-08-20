@@ -26,7 +26,7 @@ export default observer(function Upsell(){
     var ProjecttName=[{}]
 
     useEffect(()=>{
-      projectStore.loadOrders();
+      projectStore.loadProjects();
     } , [projectStore])
 
     projects.map(project =>{

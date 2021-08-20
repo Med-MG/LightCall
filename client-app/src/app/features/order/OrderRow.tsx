@@ -29,7 +29,7 @@ function OrderRow() {
     updateOrder(order!);
     
     
-   
+
     
 }
 
@@ -42,8 +42,8 @@ function OrderRow() {
         <tr key={order.id}>
         <td>{order.orderId}</td>
         <td>{order.project?.project_Type}</td>
-        <td>{order.customer.fullName}</td>
-        <td>{order.product[0].name}</td>
+        <td>{order.customer?.fullName}</td>
+        <td>{order.product[0]?.name}</td>
         <td>{order.price}</td>
         <td>
           {/* {order.status?.statusType} */}
@@ -66,7 +66,7 @@ function OrderRow() {
 
         )}
 
-     
+
       </>
     );
 }

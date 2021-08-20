@@ -5,16 +5,18 @@ import { observer } from 'mobx-react-lite';
 import Lottie from 'lottie-react';
 import OrderLottie from '../../assets/order.json';
 import loaderAnimation from "../../assets/loader.json";
+import PopupForm from '../../common/form/PopupForm'; 
+
 
 
 
 function OperatorOrder() {
 
     const {orderStore , statusStore ,  } = useStore()
-    const {assignedOrder , AssigneOrder , ordersRegistry  , updateOrder ,UpdateOperateur} = orderStore
+    const {assignedOrder , AssigneOrder , updateOrder ,UpdateOperateur} = orderStore
     const {status  , loadStatus , statusRegistry  } = statusStore
-   var [autoPlay , setAutoPlay] = useState(false)
-   var [isAnimated , setIsAnimated] = useState(false)
+    var [autoPlay , setAutoPlay] = useState(false)
+    var [isAnimated , setIsAnimated] = useState(false)
   
   
 
@@ -28,11 +30,9 @@ function OperatorOrder() {
     const onChange = id  => {
 
     var status = statusRegistry.get(id)
-    assignedOrder.status = status
-    
+    assignedOrder.status = status;
     updateOrder(assignedOrder);
 
-      
     };
 
     const onSubmit = ()  => {
@@ -45,8 +45,6 @@ function OperatorOrder() {
       AssigneOrder();
       setAutoPlay(false);
       setIsAnimated(false);
-
-
     } , 2000)
         
       };
@@ -54,31 +52,35 @@ function OperatorOrder() {
 
     if(statusStore.loadingInitial || orderStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
 
+
+    if(assignedOrder == undefined) return( <div className="card p-2 order-card ">
+    <div className="card-body">
+      <h1 className="text-center" >There no orders Assigned</h1>
+      </div>
+      </div>)
+
     return (
       <div className="card p-2 order-card ">
       <div className="card-body">
-
+      <h2 className={`new-order-text text-center mb-3 ${!isAnimated ? "" : "animated"}`} >New Order</h2>
             <div  className="d-flex text-center justify-content-around align-items-center new-order" >
               <div className={!isAnimated ? "order-animation" : 'order-animation animated'}  >
-                <h2 className={`new-order-text ${!isAnimated ? "" : "animated"}`} >New Order</h2>
+                
             <Lottie loop={false}  autoplay={autoPlay} animationData={OrderLottie}  />
             </div>
-            <div  className={!isAnimated ? "text-left order-info" : 'text-left order-info animated'}  >
+            <div  className={!isAnimated ? "text-left order-info mt-2" : 'text-left order-info m-2 animated'}>
               <div>
-                <h3>FullName : <span>{assignedOrder?.customer.fullName}</span></h3>
-                <h3>Adresse  : <span>{assignedOrder?.customer.fullAdresse}</span></h3>
-                <h3>Email    : <span>{assignedOrder?.customer.email}</span></h3>
-                <h3>Phone    : <span>{assignedOrder?.customer.phone}</span></h3>
-                <h3>Product  : <span>{assignedOrder?.product[0].name}</span></h3>
-                <h3>Quantity : <span>{assignedOrder?.product[0].quantity}</span></h3>
-                <h3>Price    : <span>{assignedOrder?.price} </span>MAD</h3>
-                
+                <h4>FullName : <PopupForm for="fullname" type="text" value={assignedOrder?.customer?.fullName} /> </h4>
+                <h4>Adresse  : <PopupForm for="adresse" type="text" value={assignedOrder?.customer?.fullAdresse} /> </h4>
+                <h4>Email    : <PopupForm for="email" type="text" value={assignedOrder?.customer?.email} /></h4>
+                <h4>Phone    : <PopupForm for="phone" type="text" value={assignedOrder?.customer?.phone} /></h4>
+                <h4>Product  : <span>{assignedOrder?.product[0]?.name}</span></h4>
+                <h4>Quantity : <span>{assignedOrder?.product[0]?.quantity}</span></h4>
+                <h4>Price    : <PopupForm for="price" type="number"  value={assignedOrder?.price}/> MAD</h4>
               </div>
 
             </div>
-            <div>
-            
-            </div>
+
             </div>
 
       </div>
@@ -93,7 +95,7 @@ return (
                   value={status?.id}
                   
                   style={{
-                    backgroundColor: `${status?.id == assignedOrder?.status.id ? "#394eea" : "#a0aaf5"}`
+                    backgroundColor: `${status?.id == assignedOrder?.status?.id ? "#394eea" : "#a0aaf5"}`
                   }}
 
                   
@@ -102,31 +104,10 @@ return (
                 >
                   {status?.statusType}
                 </button>)})}
-  
 
-
-    {/* <RadioGroup containerStyle="d-flex justify-content-around flex-wrap" onChange={onChange} >
-        {status.map(status => (
-          <Radio
-          
-            value={status.id}
-            render={({ isSelected }) =>
-                <button
-                  className="btn btn-primary m-1 mb-2"
-                  style={{
-                    backgroundColor: ` ${isSelected ? "#394eea" : "##a0aaf5"} `
-                  }}
-                >
-                  {status.statusType}
-                </button>
-             
-            } 
-          />
-        ))}
-      </RadioGroup> */}
       </div>
-      <hr  ></hr>
-        <div  className={`ml-auto p-3 pr-5 submit-order ${!isAnimated ? "" : "animated"}`} >
+      <hr hidden={isAnimated} ></hr>
+        <div  className={`ml-auto  pr-5 submit-order ${!isAnimated ? "" : "animated"}`} >
           <button className="btn btn-success m-1 btn-lg mb-2 " onClick={onSubmit}>
           Submit
           </button>

@@ -26,6 +26,7 @@ namespace Application.Orders
 
 
             public Handler(DataContext context, IMapper mapper)
+
             {
                 _mapper = mapper;
                 _context = context;
@@ -35,11 +36,11 @@ namespace Application.Orders
             {
 
                 var order = await _context.Orders.FindAsync(request.Order.Id);
-
+                order.Customer = request.Order.Customer;
                 order.Status = request.Order.Status;
+                order.Price = request.Order.Price;
 
-
-                _context.Entry(order).State = EntityState.Modified;
+               
                 var Result = await _context.SaveChangesAsync() > 0;
 
                 if (!Result) return Result<Unit>.Failure("Failed to Update Order");

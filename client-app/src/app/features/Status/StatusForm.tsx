@@ -48,7 +48,7 @@ function StatusForm() {
 
 
     return (
-        <div className="card card-primary">
+        <div className="card card-primary status-form">
         <div className="card-header"><h4>{selectedStatus ? "Edit Status" : "Add Status"}</h4></div>
 
         <div className="card-body">

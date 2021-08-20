@@ -58,7 +58,7 @@ namespace Application.UpSell
 
                 foreach(var prd in Products)
                 {
-                    prd.upsell_Id = upsell;
+                    prd.upsell = upsell;
                     _context.Products.Update(prd);
                     // await _context.SaveChangesAsync();  
                 }

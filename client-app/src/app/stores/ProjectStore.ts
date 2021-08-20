@@ -22,7 +22,7 @@ export default class ProjectStore {
 
     }
 
-    loadOrders = async () => {
+    loadProjects = async () => {
      
         this.setLoadingInitial(true)
     try{

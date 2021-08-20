@@ -7,7 +7,7 @@ namespace API.DTOs
 {
    
 
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
+   
     public class DiscountApplication
     {
         public string type { get; set; }

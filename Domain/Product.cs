@@ -9,7 +9,7 @@ namespace Domain
         public string Description { get; set; }
         public int Quantity { get; set; }
         public Project Project { get; set; }
-        public Upsell upsell_Id { get; set; }
+        public Upsell upsell { get; set; }
         public AppUser User { get; set; }
 
     }

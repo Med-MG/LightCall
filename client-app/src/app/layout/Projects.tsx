@@ -11,13 +11,11 @@ const Main = () => {
         <section className="section">
         <div className="section-header">
             <h1>Projects</h1>
-          </div> 
-   
-          <Switch>
-           <Route exact path="/admin/projectslist" component={ProjectsList} />
-           <Route exact path="/admin/Projects/AddProject" component={ProjectForm} />
-           {/* <Route exact path="/Status/EditStatus" component={StatusForm} /> */}
-         </Switch>
+        </div> 
+        <Switch>
+            <Route exact path="/user/projects/" component={ProjectsList} />
+            <Route exact path="/Projects/AddProject" component={ProjectForm} />
+        </Switch>
 
         </section>
       </div>
