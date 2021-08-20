@@ -7,6 +7,8 @@ import PersonalInformation from './PersonalInformation';
 import SecuritySettings from './SecuritySettings';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import NotificationsSettings from './NotificationsSettings';
+import AccountActivity from './AccountActivity';
 
 const Profile = () => {
     const {userStore: {user}} = useStore();
@@ -74,6 +76,8 @@ const Profile = () => {
 
                       {currentSelect === "profile" && <PersonalInformation/>}
                       {currentSelect === "SecuritySettings" && <SecuritySettings/>}
+                      {currentSelect === "Notifications" && <NotificationsSettings />}
+                      {currentSelect === "Activity" && <AccountActivity />}
                       
                     </div>
                 </div>
