@@ -12,11 +12,8 @@ import { Product } from '../models/Product';
 import { UpSell } from '../models/UpSell';
 import { toast } from 'react-toastify';
 import { history } from '../..';
-<<<<<<< HEAD
 import { ProfileFormValues } from './../models/User';
-=======
 import { Statistic } from '../models/Statistic';
->>>>>>> f57401e8b53d98cf8b9e149de65e878256cc334d
 
 
 const sleep = (delay: number) => {
