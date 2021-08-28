@@ -107,7 +107,7 @@ function App() {
       
               <AdminLayout>
                 <Switch>
-                  <PublicRoute path='/user/dashboard' exact component={Main} />
+                  <PublicRoute path='/user' exact component={Main} />
                   <PublicRoute path="/user/orders" component={Orders}  />
                   <PublicRoute path="/user/projects" component={Projects}   />  
                   <Route path="/user/errTest" component={TestError} />
