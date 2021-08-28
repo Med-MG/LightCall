@@ -11,29 +11,11 @@ export default observer(function ProductList(){
     } , [productStore])
     if(productStore.loadingInitial) return(<div>Loading...</div>)
     return(
-        <div>
+        <div className="row">
            {/* <Link to="/cities/creatCity" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add City  </Link> */}
-         <div className="card mt-4">
-                  <div className="card-body">
-                    {/* <CityForm/> */}
-                    <table className="table">
-                      <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Descrition</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">project</th>
-                            <th scope="col">Actions</th>
-                            {/* <th scope="col">Project</th> */}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <ProductRow/>
-                      </tbody>
-                    </table>
-                  </div>
-               
-                </div>  
+         
+           <ProductRow/>
+                      
         </div>
     )
 })

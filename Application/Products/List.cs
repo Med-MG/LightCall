@@ -29,8 +29,9 @@ namespace Application.Products
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
                 // return Result<List<Product>>.Success( await _context.Products.ToListAsync());
                 var AllProdcuts = await _context.Products
-                .Where(p => p.User == user)
+                // .Where(p => p.User == user)
                 .Include(x => x.Project)
+                .Include(x => x.Photos)
                 .Include(x => x.User)
                 .ToListAsync();
                 return AllProdcuts;

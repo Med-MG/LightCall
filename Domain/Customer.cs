@@ -14,7 +14,5 @@ namespace Domain
         public string Phone { get; set; }
         public string FullAdresse { get; set; }
 
-
-
     }
 }

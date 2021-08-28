@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Core;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Products
@@ -24,8 +26,13 @@ namespace Application.Products
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var product = await _context.Products.FindAsync(request.id);
-                _context.Remove(product);
+                var prduct = await _context.Products.FindAsync(request.id);
+
+                var photo = await _context.Photos.Where(p => p.product == prduct)
+                                      .FirstOrDefaultAsync();
+
+                _context.Remove(photo);
+                _context.Remove(prduct);
                 var Result =  await _context.SaveChangesAsync() > 0;
                 if (!Result) return Result<Unit>.Failure("Failed to Delete Product");
                 return Result<Unit>.Success(Unit.Value);

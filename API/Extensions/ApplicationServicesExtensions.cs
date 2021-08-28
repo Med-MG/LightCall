@@ -9,6 +9,7 @@ using Application.cities;
 using Application.Interfaces;
 using Infrastructure.Security;
 using System.Linq;
+using Infrastructure.Photos;
 
 namespace API.Extensions
 {
@@ -36,6 +37,9 @@ namespace API.Extensions
             // services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddAutoMapper(typeof(mappingRegister));
             services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IPhotoAccessor, PhotosAccessor>();
+            services.Configure<CloudinarySettings>(config.GetSection("Cloudinary"));
+
             return services;
         }
     }

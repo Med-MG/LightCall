@@ -31,6 +31,9 @@ import ModalContainer from '../common/modals/ModalContainer';
 import ProjectsList from '../features/project/ProjectsList';
 import ProjectForm from '../features/project/ProjectForm';
 import Profile from '../features/CommonFeatures/Profile';
+import ProductForm from '../features/product/ProductForm';
+import OrderSheet from '../features/order/OrderSheetForm';
+import Product from './Product';
 
 
 function App() {
@@ -109,7 +112,12 @@ function App() {
                 <Switch>
                   <PublicRoute path='/user' exact component={Main} />
                   <PublicRoute path="/user/orders" component={Orders}  />
+                  <PublicRoute path="/user/orderssheet" component={OrderSheet} />
                   <PublicRoute path="/user/projects" component={Projects}   />  
+                  {/* Product Route */}
+                  <PublicRoute path="/user/products/:id" component={ProductForm}   />
+                  <PublicRoute path="/user/products" component={Product}   />
+
                   <Route path="/user/errTest" component={TestError} />
                   <Route path="/user/profile" component={Profile} />
                   <Route path="*" >

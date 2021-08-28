@@ -10,10 +10,13 @@ import { store } from '../stores/Store';
 import { Status } from './../models/Status';
 import { Product } from '../models/Product';
 import { UpSell } from '../models/UpSell';
+import { OrderSheet } from '../models/OrderSheet';
 import { toast } from 'react-toastify';
 import { history } from '../..';
 import { ProfileFormValues } from './../models/User';
 import { Statistic } from '../models/Statistic';
+import { Photo } from '../models/Photo';
+
 
 
 const sleep = (delay: number) => {
@@ -88,7 +91,8 @@ const Orders = {
     assigne: () => requests.put<Order>('/Order/AsinOrder', {}),
     inAssigne: (id: string) => requests.put<void>(`/Order/inAsinOrder/${id}`, {}),
     updateOperateur: () => requests.put<void>(`/Order/operateur` , {}),
-    uploadExcel : (importFile: FormData) => requests.post<void>('/Order/Import', importFile )
+    uploadExcel : (importFile: FormData) => requests.post<void>('/Order/Import', importFile ),
+    sheetConnect : (OrderSheet : OrderSheet) => requests.post<void>('/Order/sheet', OrderSheet )
 
 }
 
@@ -127,7 +131,31 @@ const Projects = {
 const Products = {
     list: () => requests.get<Product[]>('/Product'),
     details: (id: string) => requests.get<Project>(`/Product/${id}`),
-    create: (product: Product) => requests.post<void>('/Product', product),
+    create: (product: Product ) => {
+        console.log(product);
+        let formData = new FormData();
+        formData.append('file', product.file!);
+        formData.append('projectId', product.id!);
+        formData.append('description', product.description!);
+        formData.append('quantity', product.quantity!);
+        formData.append('id', product.id!);
+        formData.append('name', product.name!);
+        // return axios.post<Photo>('/photo', formData, {
+        //     headers : {'Conetent-type':'multipart/form-data'}
+        // })
+         return axios.post<void>('/Product', formData, {
+             headers : {'Conetent-type':'multipart/form-data'}
+         })
+        
+    },
+    // requests.post<void>('/Product', product),
+    // uploadPhoto: (file: Blob) =>{
+    //     let formData = new FormData();
+    //     formData.append('File', file);
+    //     return axios.post<Photo>('/photo', formData, {
+    //         headers : {'Conetent-type':'multipart/form-data'}
+    //     })
+    // },
     update: (product: Product) => requests.put<void>(`/Product/${product.id}`, product),
     delete: (id: string) => requests.del<void>(`/Product/${id}`)
 }

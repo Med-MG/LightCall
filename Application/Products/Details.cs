@@ -5,6 +5,7 @@ using Application.Core;
 using Application.Interfaces;
 using Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Products
@@ -29,7 +30,11 @@ namespace Application.Products
 
             public async Task<Result<Product>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var product = await _context.Products.FindAsync(request.Id);
+                var product = await _context.Products
+                                .Include(x => x.Project)
+                                .Include(x => x.Photos)
+                                .Include(x => x.User)
+                                .FirstOrDefaultAsync(p => p.Id == request.Id);;
 
                 return Result<Product>.Success(product);
             }

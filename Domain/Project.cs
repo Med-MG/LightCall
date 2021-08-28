@@ -10,7 +10,5 @@ namespace Domain
         public bool IsShopify { get; set; }
         public string WebHookSecret{ get; set; }
         public AppUser User { get; set; }
-        
-        
     }
 }

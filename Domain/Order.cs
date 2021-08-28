@@ -20,6 +20,5 @@ namespace Domain
         public decimal Price { get; set; }
         public List<Product> Product { get; set; }
 
-
     }
 }

@@ -5,6 +5,7 @@ namespace Domain
 {
     public class Shipping_Company
     {
+        
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string ApiClient { get; set; }

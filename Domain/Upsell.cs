@@ -11,5 +11,6 @@ namespace Domain
         public Project Project { get; set; }
         public ICollection<Product> Product_ids { get; set; }
          public AppUser User { get; set; }
+         
     }
 }

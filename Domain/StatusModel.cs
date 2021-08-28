@@ -9,7 +9,6 @@ namespace Domain
 {
     public class StatusModel
     {
-        
         public Guid Id { get; set; }
         public string StatusType { get; set; }
         public int StatusPiority { get; set; }

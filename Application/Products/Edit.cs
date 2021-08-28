@@ -1,9 +1,12 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Core;
+using Application.Interfaces;
 using AutoMapper;
 using Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Products
@@ -19,16 +22,25 @@ namespace Application.Products
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
+            private readonly IPhotoAccessor _photoAccessor;
 
-            public Handler(DataContext context, IMapper mapper)
+            public Handler(DataContext context, IMapper mapper , IPhotoAccessor photoAccessor)
             {
                 _mapper = mapper;
                 _context = context;
-
+                _photoAccessor = photoAccessor;
             }
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var product = await _context.Products.FindAsync(request.Product.Id);
+                //edite photo
+                var photo = await _context.Photos.Where(p => p.product == product)
+                                      .FirstOrDefaultAsync();
+                var photoUploadResult = await _photoAccessor.AddPhoto(request.Product.file);
+
+                photo.Url = photoUploadResult.Url;
+                _context.Photos.Update(photo);
+                //edite Product
                 Project project = new Project();
                 var prj = request.Product.ProjectId;
                 project = await _context.Projects.FindAsync(prj);
