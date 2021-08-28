@@ -6,6 +6,7 @@ import Lottie from 'lottie-react';
 import OrderLottie from '../../assets/order.json';
 import loaderAnimation from "../../assets/loader.json";
 import PopupForm from '../../common/form/PopupForm'; 
+import NewOrderPopup from '../../common/modals/NewOrderPopup';
 
 
 
@@ -17,9 +18,25 @@ function OperatorOrder() {
     const {status  , loadStatus , statusRegistry  } = statusStore
     var [autoPlay , setAutoPlay] = useState(false)
     var [isAnimated , setIsAnimated] = useState(false)
-  
-  
+    var [timer , setTimer] = useState(100)
 
+    useEffect(() => {
+      console.log(localStorage.getItem("timer"));
+      setTimer(localStorage.getItem("timer"));
+    },[] );
+  
+    useEffect(() => {
+      const interval = setInterval(() => setTimer(timer - 1), 1000);
+      localStorage.setItem("timer", timer )
+      if(timer == 0){
+
+        setTimer(100);
+      }
+      return () => {
+        clearInterval(interval);
+      };
+    }, [timer]);
+ 
 
     useEffect(()=>{
       AssigneOrder()
@@ -49,6 +66,15 @@ function OperatorOrder() {
         
       };
   
+     const  formatTime = (secs)=> {
+        let hours   = Math.floor(secs / 3600);
+        let minutes = Math.floor(secs / 60) % 60;
+        let seconds = secs % 60;
+        return [hours, minutes, seconds]
+            .map(v => ('' + v).padStart(2, '0'))
+            .filter((v,i) => v !== '00' || i > 0)
+            .join(':');
+      }
 
     if(statusStore.loadingInitial || orderStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
 
@@ -60,7 +86,9 @@ function OperatorOrder() {
       </div>)
 
     return (
+
       <div className="card p-2 order-card ">
+        
       <div className="card-body">
       <h2 className={`new-order-text text-center mb-3 ${!isAnimated ? "" : "animated"}`} >New Order</h2>
             <div  className="d-flex text-center justify-content-around align-items-center new-order" >
@@ -107,7 +135,11 @@ return (
 
       </div>
       <hr hidden={isAnimated} ></hr>
-        <div  className={`ml-auto  pr-5 submit-order ${!isAnimated ? "" : "animated"}`} >
+      
+        <div  className={`d-flex text-center justify-content-between align-items-center  pr-5 submit-order ${!isAnimated ? "" : "animated"}`} >
+        <h4 className="ml-5" >
+       in {formatTime(timer)} min
+      </h4>
           <button className="btn btn-success m-1 btn-lg mb-2 " onClick={onSubmit}>
           Submit
           </button>

@@ -53,7 +53,6 @@ function StatusForm() {
 
         <div className="card-body">
          <Formik 
-           
             initialValues={addStatusForm}
             validationSchema={AddStatusSchema}
             onSubmit={(values, {setErrors}) =>{handleSubmit(values, {setErrors})}}

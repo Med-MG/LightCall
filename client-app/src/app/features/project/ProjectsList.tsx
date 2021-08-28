@@ -32,9 +32,7 @@ function handleSubmit(values : any  , {setErrors } : any) {
    data.append("projectId" ,selectedProject)
    
     UploadExel(data);
-    // console.log(values)
-    // console.log(selectedStatus);
-    // console.log(selectedProject);
+
     
   }
 
