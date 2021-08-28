@@ -8,6 +8,7 @@ namespace Persistence
     {
         public DataContext(DbContextOptions options) : base(options)
         {
+            
         }
         public  DbSet<OperatorAcc> OperatoreAccount { get; set; }
         public  DbSet<City> Cities { get; set; }
@@ -19,6 +20,7 @@ namespace Persistence
         public  DbSet<Product> Products { get; set; }
         public  DbSet<Upsell> Upsell { get; set; }
         public  DbSet<Customer> Customers { get; set; }
+        public  DbSet<Photo> Photos { get; set; }
 
     }
 }

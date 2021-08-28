@@ -28,7 +28,9 @@ namespace Application.Projects
             public async Task<List<Project>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-                var project = await _context.Projects.Where(x => x.User == user).ToListAsync();
+                var project = await _context.Projects
+                .Where(x => x.User == user)
+                .ToListAsync();
                 return project;
             }
         }

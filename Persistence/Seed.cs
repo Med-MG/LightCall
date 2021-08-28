@@ -17,8 +17,6 @@ namespace Persistence
                     new AppUser{FirstName = "Med", LastName = "Mouiguina", UserName = "Mouiguina", Email = "med@gmail.com", SkypeId = "9746j984938" },
                     new AppUser{FirstName = "Ned", LastName = "Nelson", UserName = "Nelson", Email = "ned@gmail.com", SkypeId = "56456984938" },
                     new AppUser{FirstName = "John", LastName = "Doe", UserName = "JDoe", Email = "john@gmail.com", SkypeId = "734b6454938" },
-
-
                 };
 
                 foreach (var user in users)

@@ -5,7 +5,7 @@ import { useStore } from "../../stores/Store";
 function UpsellRow(){
     const {upsellStore} = useStore();
     const {selectUpsell, deleteUpsell , Upsells , upselltRegistery}  = upsellStore;
-
+    
     return ( 
         <>
         {console.log(upselltRegistery)}

@@ -4,15 +4,18 @@ import {v4 as uuid} from 'uuid';
 import { Product } from "../models/Product";
 export default class ProductStore{
     productRegistery = new Map<string , Product>();
+    product : Product | null = null;
     loadingInitial = false;
     loading = false;
     productSelected : Product | undefined = undefined;
+    uploading = false;
 
     constructor(){
         makeAutoObservable(this);
     }
 
     get products() {
+        
         return Array.from(this.productRegistery.values());
     }
 
@@ -22,9 +25,12 @@ export default class ProductStore{
 
     loadProducts = async () =>{
         this.setLoadingInitial(true);
+        console.log("kfkfkkf");
         try{
             var products = await agent.Products.list();
+            console.log("kfkfkkf");
             products.forEach(product =>{
+                console.log(product);
                 this.productRegistery.set(product.id, product);
             })
             this.setLoadingInitial(false)
@@ -34,9 +40,12 @@ export default class ProductStore{
         }
     }
 
-    creatProduct = async (product: Product) =>{
+    creatProduct = async (product: Product, file: Blob ) =>{
         this.loading = true ;
         product.id = uuid();
+        
+        product.file = file;
+        console.log(product.file);
         try{
             await agent.Products.create(product);
             runInAction(()=>{
@@ -84,4 +93,22 @@ export default class ProductStore{
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
+
+    // uploadPhoto = async (file: Blob) =>{
+    //     this.uploading = true;
+    //     try {
+    //         const response = await agent.Products.uploadPhoto(file);
+    //         const photo = response.data;
+    //         console.log(photo)
+    //         runInAction(() =>{
+    //             if(this.product){
+    //                 this.product.photos?.push(photo)
+    //             }
+    //         })
+    //         this.uploading = false;
+    //     } catch(error){
+    //         console.log(error);
+    //         runInAction(()=> this.uploading = false);
+    //     }
+    // }
 }

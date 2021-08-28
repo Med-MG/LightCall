@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -11,6 +12,7 @@ namespace Domain
         public Project Project { get; set; }
         public Upsell upsell { get; set; }
         public AppUser User { get; set; }
-
+        public ICollection<Photo> Photos { get; set; }
+        
     }
 }

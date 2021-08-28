@@ -17,6 +17,9 @@ using Application.Orders;
 using MediatR;
 using Newtonsoft.Json.Linq;
 using API.DTOs;
+using Google.Apis.Sheets.v4;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Services;
 
 namespace API.Controllers
 {
@@ -159,62 +162,64 @@ namespace API.Controllers
         }
 
 
-        [HttpPost("Shopify/{id}")]
-        public async Task<IActionResult> ShopifyOrder(Guid id, ShopifyOrderDto shopifyOrder)
-        {
+        // [HttpPost("Shopify/{id}")]
+        // public async Task<IActionResult> ShopifyOrder(Guid id  , ShopifyOrderDto shopifyOrder )
+        // {
 
 
 
-            Project project = _context.Projects.FindAsync(id).Result;
+  
+        //     Project project = _context.Projects.FindAsync(id).Result ;
 
-            Domain.Customer customer = new Domain.Customer
-            {
-                FullName = shopifyOrder.customer.first_name + " " + shopifyOrder.customer.last_name,
-                Email = shopifyOrder.customer.email,
-                Phone = shopifyOrder.customer.default_address.phone,
-                FullAdresse = shopifyOrder.customer.default_address.address1 + " , " + shopifyOrder.customer.default_address.address1
-
-
-            };
-
-            var orderId = shopifyOrder.id;
-            var price = shopifyOrder.total_price;
-
-            Order order = new Order
-            {
-                OrderId = orderId.ToString(),
-                Price = Decimal.Parse(price),
-                Project = project,
-                Customer = customer
-            };
-
-            List<Product> products = new List<Product>();
-
-            shopifyOrder.line_items.ForEach((item) =>
-            {
-
-                Product product = new Product
-                {
-                    Name = item.name,
-                    Quantity = item.quantity,
-                    Project = project
-                };
+        //     Domain.Customer customer = new Domain.Customer
+        //     {
+        //         FullName = shopifyOrder.customer.first_name + " " + shopifyOrder.customer.last_name,
+        //         Email = shopifyOrder.customer.email,
+        //         Phone = shopifyOrder.customer.default_address.phone,
+        //         FullAdresse = shopifyOrder.customer.default_address.address1 + " , " + shopifyOrder.customer.default_address.address1
 
 
-                products.Add(product);
+        //     };
 
-            });
+        //     var orderId = shopifyOrder.id;
+        //     var price = shopifyOrder.total_price;
 
-            order.Product = products;
+        //     Order order = new Order
+        //     {
+        //         OrderId = orderId.ToString(),
+        //         Price = Decimal.Parse(price),
+        //         Project = project,
+        //         Customer = customer
+        //     };
+
+        //     List<Product> products = new List<Product>();
+
+        //     shopifyOrder.line_items.ForEach((item) =>
+        //     {
+
+        //         Product product = new Product
+        //         {
+        //             Name = item.name,
+        //             Quantity = item.quantity,
+        //             Project = project
+        //         };
 
 
+        //         products.Add(product);
 
-            await _context.Orders.AddAsync(order);
-            await _context.SaveChangesAsync();
+        //     });
 
-            return Ok();
 
-        }
+        //     order.Product = products;
+            
+         
+       
+        //     await _context.Orders.AddAsync(order);
+        //     await _context.SaveChangesAsync() ;
+
+        //     return Ok();
+
+        // }
 
         [HttpPost]
         [Route("WooCommerce/{id}")]
@@ -300,5 +305,70 @@ namespace API.Controllers
         }
 
 
+        //sheet  
+        static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets} ;
+        static readonly string ApplicationName = "OrdersSheet" ;
+        // static readonly string SpreadsheetId = "1uTjbQytwtJALPPVj-L2Vtw2vNY7H3F76jG8b4XbXZfI" ;
+        // static readonly string sheet = "dpp" ;
+        static SheetsService service;
+        [HttpPost ("sheet")]
+        public async Task<IActionResult> Sheet(OrderSheet sheetInfo){
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
+            GoogleCredential credential;
+            using(var stream = new FileStream("google-credentials.json", FileMode.Open , FileAccess.Read))
+            {
+                credential = GoogleCredential.FromStream(stream).CreateScoped(Scopes);
+            }
+            service = new SheetsService(new BaseClientService.Initializer(){
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+            // SeedOrder();
+            //seed data in db
+            var range = $"{sheetInfo.sheet}!A:B";
+            var request = service.Spreadsheets.Values.Get(sheetInfo.SpreadsheetId , range);
+
+            var orderList = new List<Order>();
+            var response = request.Execute();
+            Guid idStatus = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+            StatusModel status = await _context.Status.FindAsync(idStatus);
+            Guid idprj = Guid.Parse("3FA85F64-5717-4562-B3FC-2C963F66AFA6");
+            Project project = await _context.Projects.FindAsync(idprj);
+            // Project project = await _context.Projects.FindAsync(sheetInfo.Project_id);
+            // Guid prddd = Guid.Parse("EA519F8E-E666-4EF7-91AA-EAA572F74A9A");
+            // Product prodd = await _context.Products.FindAsync(prddd);
+            List<Product> Products = new List<Product>();
+            // Products.Add(prodd);
+            foreach (var product in sheetInfo.Products_ids)
+                {
+                    Products.Add(await _context.Products.FindAsync(product));
+                }
+            var values = response.Values;
+            if(values != null && values.Count > 0){
+                foreach(var row in values){
+                    // var loool = row[0].ToString().Trim();
+                    // var mppp = loool;
+                    orderList.Add(new Order
+                            {
+                                OrderId = row[0].ToString().Trim(),
+                                Description = "desk",
+                                
+                                //Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
+                                Price = 3,
+                                Status = status,
+                                Project = project,
+                                Product = Products,
+                            }); ;
+                }
+                await _context.Orders.AddRangeAsync(orderList);
+                await _context.SaveChangesAsync();
+            }
+            return Ok();
+        }
+
+        
+        // public async void SeedOrder(){
+            
+        // }
     }
 }

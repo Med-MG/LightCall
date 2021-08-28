@@ -11,7 +11,7 @@ namespace API.Controllers
     public class ProductController : BaseApiController
     {
         [HttpPost]
-        public async Task<IActionResult> AddProduct(ProductDto product)
+        public async Task<IActionResult> AddProduct([FromForm] ProductDto product)
         {
             return HandleResult( await Mediator.Send(new Create.Command{Product = product}));
         }
@@ -30,9 +30,8 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStatus(Guid id, ProductDto product)
-        {
-           
+        public async Task<IActionResult> PutProduct( Guid id, [FromForm] ProductDto product)
+        {  
            product.Id = id;
            return HandleResult( await Mediator.Send(new Edit.Command { Product = product  }));   
         }
