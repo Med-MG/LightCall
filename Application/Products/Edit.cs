@@ -48,6 +48,7 @@ namespace Application.Products
                 product.Description = request.Product.Description;
                 product.Quantity= request.Product.Quantity;
                 product.Project = project;
+                // product.Photos = request.Product.Photos;
                 _context.Products.Update(product);
                 // _mapper.Map(request.Product, product);
                 // var Result = await _context.SaveChangesAsync() > 0;

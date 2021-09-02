@@ -68,7 +68,9 @@ export default observer(function ProductForm(){
         console.log(values);
         // productSelected ? updateProduct(values) : creatProduct(values) ;
         if(productSelected){
-          updateProduct(values)
+          if (cropper) {
+            cropper.getCroppedCanvas().toBlob(blob =>  updateProduct(values , blob!));
+        }
         }else{
           if (cropper) {
             cropper.getCroppedCanvas().toBlob(blob =>  creatProduct(values , blob!));
