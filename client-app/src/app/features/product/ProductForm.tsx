@@ -92,7 +92,7 @@ export default observer(function ProductForm(){
 
     if(projectStore.loadingInitial) return(<div>Loading...</div>)
     return(
-      <div className="main-content">
+      <div>
         <div className="card card-primary">
             <div className="card-header"><h4>{productSelected ? "Edit Product" : "Add Product"}</h4></div>
             <div className="card-body">
