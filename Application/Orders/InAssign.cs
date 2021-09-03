@@ -40,6 +40,8 @@ namespace Application.Orders
 
                 var order = await _context.Orders.Where(o => o.Id == request.id).Include(o => o.Operators).FirstOrDefaultAsync();
 
+                Operator.AssignOrderId = null;
+
                 order.Operators.Remove(Operator);
 
                 var Result = await _context.SaveChangesAsync() > 0;

@@ -14,7 +14,7 @@ import NewOrderPopup from '../../common/modals/NewOrderPopup';
 function OperatorOrder() {
 
     const {orderStore , statusStore ,  } = useStore()
-    const {assignedOrder , AssigneOrder , updateOrder ,UpdateOperateur} = orderStore
+    const {assignedOrder , AssigneOrder , updateOrder ,UpdateOperateur , OperateurStatus ,InAssigneOrder } = orderStore
     const {status  , loadStatus , statusRegistry  } = statusStore
     var [autoPlay , setAutoPlay] = useState(false)
     var [isAnimated , setIsAnimated] = useState(false)
@@ -29,8 +29,11 @@ function OperatorOrder() {
       const interval = setInterval(() => setTimer(timer - 1), 1000);
       localStorage.setItem("timer", timer )
       if(timer == 0){
-
-        setTimer(100);
+        setTimer(100)
+        InAssigneOrder(assignedOrder?.id);
+        OperateurStatus();
+        clearInterval(interval);
+        localStorage.removeItem("timer");
       }
       return () => {
         clearInterval(interval);
@@ -49,21 +52,21 @@ function OperatorOrder() {
     var status = statusRegistry.get(id)
     assignedOrder.status = status;
     updateOrder(assignedOrder);
-
+   
     };
 
-    const onSubmit = ()  => {
-
+    const onSubmit =  ()  => {
+    UpdateOperateur()
     setAutoPlay(true);
     setIsAnimated(true);
-  
     setTimeout(()=>{
-      UpdateOperateur()
       AssigneOrder();
+    } , 1000)
+    setTimeout(()=>{
       setAutoPlay(false);
       setIsAnimated(false);
+      setTimer(100);
     } , 2000)
-        
       };
   
      const  formatTime = (secs)=> {

@@ -52,7 +52,7 @@ function PopupForm(props : props) {
     }
 
     return (
-        <Popup open={isOpen} onOpen={()=>setOpen(true)} trigger={<span  >{props.value}</span>} position="right center">
+        <Popup open={isOpen} onOpen={()=>{setOpen(true); setValue(props.value) }} trigger={<span   >{props.value}</span>} position="right center">
             <div className="d-flex justify-content-around align-items-center shadow-sm p-2  bg-white rounded" >
                 <input type={props.type}  value={value} onChange={(e)=>setValue(e.target.value)} className="form-control form-control-sm" /> 
                 <button  onClick={UpdateOrder} className="btn btn-primary btn-sm editable-submit mx-2 ">

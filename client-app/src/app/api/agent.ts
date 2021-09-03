@@ -25,7 +25,7 @@ const sleep = (delay: number) => {
     })
 }
 
-axios.defaults.baseURL = 'http://localhost:5000/api';
+axios.defaults.baseURL = 'https://localhost:44303/api';
 
 //this peace of code makes sure that we send our token with every request
 axios.interceptors.request.use(config => {
@@ -92,7 +92,8 @@ const Orders = {
     inAssigne: (id: string) => requests.put<void>(`/Order/inAsinOrder/${id}`, {}),
     updateOperateur: () => requests.put<void>(`/Order/operateur` , {}),
     uploadExcel : (importFile: FormData) => requests.post<void>('/Order/Import', importFile ),
-    sheetConnect : (OrderSheet : OrderSheet) => requests.post<void>('/Order/sheet', OrderSheet )
+    sheetConnect : (OrderSheet : OrderSheet) => requests.post<void>('/Order/sheet', OrderSheet ),
+    OperateurStatus: () => requests.put<void>(`/Order/operateurStatus` , {}),
 
 }
 

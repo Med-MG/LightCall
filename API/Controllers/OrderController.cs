@@ -149,6 +149,20 @@ namespace API.Controllers
             return Ok();
 
         }
+        [HttpPut("operateurStatus")]
+        public async Task<IActionResult> OperateurStatus()
+        {
+            var id = _userAccessor.GetUserId();
+            var Operator = await _context.OperatoreAccount.FindAsync(id);
+
+            Operator.Status = !Operator.Status;
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+
+        }
+
 
 
 
@@ -162,64 +176,65 @@ namespace API.Controllers
         }
 
 
-        // [HttpPost("Shopify/{id}")]
-        // public async Task<IActionResult> ShopifyOrder(Guid id  , ShopifyOrderDto shopifyOrder )
-        // {
+        [HttpPost("Shopify/{id}")]
+        public async Task<IActionResult> ShopifyOrder(Guid id, ShopifyOrderDto shopifyOrder)
+        {
 
 
 
-  
-        //     Project project = _context.Projects.FindAsync(id).Result ;
 
-        //     Domain.Customer customer = new Domain.Customer
-        //     {
-        //         FullName = shopifyOrder.customer.first_name + " " + shopifyOrder.customer.last_name,
-        //         Email = shopifyOrder.customer.email,
-        //         Phone = shopifyOrder.customer.default_address.phone,
-        //         FullAdresse = shopifyOrder.customer.default_address.address1 + " , " + shopifyOrder.customer.default_address.address1
+            Project project = _context.Projects.FindAsync(id).Result;
 
+            Domain.Customer customer = new Domain.Customer
+            {
+                FullName = shopifyOrder.customer.first_name + " " + shopifyOrder.customer.last_name,
+                Email = shopifyOrder.customer.email,
+                Phone = shopifyOrder.customer.default_address.phone,
+                FullAdresse = shopifyOrder.customer.default_address.address1 + " , " + shopifyOrder.customer.default_address.address1
 
-        //     };
+            };
 
-        //     var orderId = shopifyOrder.id;
-        //     var price = shopifyOrder.total_price;
+            var orderId = shopifyOrder.id;
+            var price = shopifyOrder.total_price;
 
-        //     Order order = new Order
-        //     {
-        //         OrderId = orderId.ToString(),
-        //         Price = Decimal.Parse(price),
-        //         Project = project,
-        //         Customer = customer
-        //     };
+            Order order = new Order
+            {
+                OrderId = orderId.ToString(),
+                Price = Decimal.Parse(price),
+                Project = project,
+                Customer = customer
+            };
+            var status = _context.Status.Where(s => s.StatusType == "new order").FirstOrDefault();
+            order.Status = status;
 
-        //     List<Product> products = new List<Product>();
+            List<Product> products = new List<Product>();
 
-        //     shopifyOrder.line_items.ForEach((item) =>
-        //     {
+            shopifyOrder.line_items.ForEach((item) =>
+            {
 
-        //         Product product = new Product
-        //         {
-        //             Name = item.name,
-        //             Quantity = item.quantity,
-        //             Project = project
-        //         };
-
-
-        //         products.Add(product);
-
-        //     });
+                Product product = new Product
+                {
+                    Name = item.name,
+                    Quantity = item.quantity,
+                    Project = project
+                };
 
 
-        //     order.Product = products;
-            
-         
-       
-        //     await _context.Orders.AddAsync(order);
-        //     await _context.SaveChangesAsync() ;
+                products.Add(product);
 
-        //     return Ok();
+            });
 
-        // }
+
+            order.Product = products;
+
+
+
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+
+        }
 
         [HttpPost]
         [Route("WooCommerce/{id}")]
@@ -234,7 +249,6 @@ namespace API.Controllers
                 Phone = WooCommerceOrder.customer.billing_address.phone,
                 FullAdresse = WooCommerceOrder.customer.billing_address.address_1 
 
-
             };
 
             var orderId = WooCommerceOrder.id;
@@ -247,6 +261,9 @@ namespace API.Controllers
                 Project = project,
                 Customer = customer
             };
+
+            var status = _context.Status.Where(s => s.StatusType == "new order").FirstOrDefault();
+            order.Status = status;
 
             List<Product> products = new List<Product>();
 
@@ -285,7 +302,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("inAsinOrder")]
+        [HttpPut("inAsinOrder/{id}")]
 
         public async Task<IActionResult> InAsinOrder(Guid id)
         {

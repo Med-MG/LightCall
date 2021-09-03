@@ -47,11 +47,65 @@ namespace Persistence
             //     {
             //         await roleManager.CreateAsync(role);
             //     }
-                
+
             // }
             // await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
-            
-            if(context.Cities.Any()) return;
+
+            if (!context.Status.Any())
+            {
+
+                var status = new List<StatusModel>
+            {
+                new StatusModel
+                {
+                    StatusPiority = 1,
+                    StatusType= "new order",
+                    ClosingStatus = false ,
+
+                }, new StatusModel
+                {
+                    StatusPiority = 5,
+                    StatusType= "confirmer",
+                    ClosingStatus = false ,
+
+                }, new StatusModel
+                {
+                    StatusPiority = 6,
+                    StatusType= "livrer",
+                    ClosingStatus = true ,
+
+                },new StatusModel
+                {
+                    StatusPiority = 4,
+                    StatusType= "no answer",
+                    ClosingStatus = true ,
+
+                },new StatusModel
+                {
+                    StatusPiority = 7,
+                    StatusType= "cancelled",
+                    ClosingStatus = true ,
+
+                },new StatusModel
+                {
+                    StatusPiority = 3,
+                    StatusType= "busy",
+                    ClosingStatus = true ,
+
+                },new StatusModel
+                {
+                    StatusPiority = 2,
+                    StatusType= "call later",
+                    ClosingStatus = true ,
+
+                },
+            };
+                await context.Status.AddRangeAsync(status);
+                await context.SaveChangesAsync();
+            }
+
+
+            if (context.Cities.Any()) return;
              
              var Citiess = new List<City>
              {

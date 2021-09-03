@@ -28,7 +28,7 @@ namespace Application.Orders
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
 
-               var status =   _context.Status.Where(s => s.StatusType == "New order").FirstOrDefault();
+               var status =   _context.Status.Where(s => s.StatusType == "new order").FirstOrDefault();
                 request.Order.Status = status;
 
 
