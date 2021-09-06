@@ -48,7 +48,7 @@ function ProjectForm() {
 
 
     return (
-      <div className="main-content">
+      <div>
       <section className="section">
       <div className="section-header">
           <h1>Projects</h1>
