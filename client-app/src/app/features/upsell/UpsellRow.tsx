@@ -9,15 +9,16 @@ function UpsellRow(){
     return ( 
         <>
         {console.log(upselltRegistery)}
+        {console.log(Upsells)}
             {Upsells.map((Upsell)=> {
                 return ( 
                     <tr key={Upsell.id}>
                         <td>{Upsell.name}</td>
                         <td>{Upsell.project?.project_Type}</td>
-                        <td>{Upsell.product_ids[0]?.name}</td>
+                        <td>{Upsell.Products_ids ? Upsell.Products_ids[0]?.name : null}</td>
                         <td>{String(Upsell.status)}</td>
                         {/* <td>{Upsell.Project}</td> */}
-                         {console.log(Upsell.product_ids)}
+                         {console.log(Upsell.Products_ids)}
                         {/* <td>{Upsell.Project}</td> */}
                         <td>
                             <div>

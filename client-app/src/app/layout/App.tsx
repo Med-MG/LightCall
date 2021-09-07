@@ -34,6 +34,7 @@ import Profile from '../features/CommonFeatures/Profile';
 import ProductForm from '../features/product/ProductForm';
 import OrderSheet from '../features/order/OrderSheetForm';
 import Product from './Product';
+import Upsell from './Upsell';
 
 
 function App() {
@@ -117,6 +118,7 @@ function App() {
                   {/* Product Route */}
                   <PublicRoute path="/user/products/:id" component={ProductForm}   />
                   <PublicRoute path="/user/products" component={Product}   />
+                  <PublicRoute path="/user/upsell" component={Upsell} /> 
 
                   <Route path="/user/errTest" component={TestError} />
                   <Route path="/user/profile" component={Profile} />
