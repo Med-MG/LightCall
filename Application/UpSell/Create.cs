@@ -51,6 +51,7 @@ namespace Application.UpSell
                 Upsell upsell = new Upsell(){
                     Status = request.Upsell.Status ,
                     Name = request.Upsell.Name,
+                    Product_ids = Products,
                     Project = await _context.Projects.FindAsync(request.Upsell.Project_id),
                     // Product = Products,
                     User = user

@@ -68,7 +68,9 @@ export default observer(function ProductForm(){
         console.log(values);
         // productSelected ? updateProduct(values) : creatProduct(values) ;
         if(productSelected){
-          updateProduct(values)
+          if (cropper) {
+            cropper.getCroppedCanvas().toBlob(blob =>  updateProduct(values , blob!));
+        }
         }else{
           if (cropper) {
             cropper.getCroppedCanvas().toBlob(blob =>  creatProduct(values , blob!));
@@ -92,7 +94,7 @@ export default observer(function ProductForm(){
 
     if(projectStore.loadingInitial) return(<div>Loading...</div>)
     return(
-      <div className="main-content">
+      <div>
         <div className="card card-primary">
             <div className="card-header"><h4>{productSelected ? "Edit Product" : "Add Product"}</h4></div>
             <div className="card-body">

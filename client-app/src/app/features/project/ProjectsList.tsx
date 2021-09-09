@@ -7,11 +7,12 @@ import ProjectRow from './ProjectRow';
 import { Link } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik'
 import { useState } from 'react';
+import ProjectForm from './ProjectForm';
 
 
 function ProjectsList() {
 
-     const {projectStore , orderStore , statusStore} = useStore();
+     const {projectStore , orderStore , statusStore , modalStore} = useStore();
      const {UploadExel} = orderStore
      const {status } = statusStore ;
      const {projects , loadProjects } = projectStore ;
@@ -41,13 +42,10 @@ function handleSubmit(values : any  , {setErrors } : any) {
  if(projectStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
 
     return (
-      <div className="main-content">
-      <section className="section">
-      <div className="section-header">
-          <h1>Projects</h1>
-        </div> 
+      <div>
+      <section className="section"> 
         <div>
-         <Link to="/admin/projForm" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add New Project  </Link> 
+         <button className="btn btn-icon icon-left btn-primary" onClick={()=>modalStore.openModal(<ProjectForm />)}> <i className="fa fa-plus" > </i> Add New Project  </button> 
 
         <div className="card p-3 mt-4" >  
         <Formik 

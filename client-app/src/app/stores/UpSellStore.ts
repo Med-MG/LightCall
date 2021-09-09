@@ -27,9 +27,13 @@ export default class UpSellStore{
         try{
             var upsellls = await agent.Upsell.list();
             console.log(upsellls)
+            console.log("kfkfkkf");
+            
             upsellls.forEach(upsell =>{
                 this.upselltRegistery.set(upsell.id, upsell);
             })
+            
+            
             this.setLoadingInitial(false)
         }catch(error){
             console.log(error)
@@ -38,13 +42,15 @@ export default class UpSellStore{
     }
 
     createUpSell = async (upsell : UpSell)=>{
-        // console.log(upsell);
+        console.log(upsell);
         this.loading = true ;
+        console.log(upsell);
         upsell.id = uuid()
         try{
             await agent.Upsell.create(upsell);
             runInAction(()=>{
                 this.upselltRegistery.set(upsell.id, upsell);
+                console.log('teeesl');
                 this.loading = false ; 
             })
             // console.log('ddddd')
