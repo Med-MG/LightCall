@@ -34,6 +34,7 @@ import Profile from '../features/CommonFeatures/Profile';
 import ProductForm from '../features/product/ProductForm';
 import OrderSheet from '../features/order/OrderSheetForm';
 import Product from './Product';
+import UsersDashboard from './../features/Member/UsersDashboard';
 
 
 function App() {
@@ -110,7 +111,7 @@ function App() {
       
               <AdminLayout>
                 <Switch>
-                  <PublicRoute path='/user' exact component={Main} />
+                  <PublicRoute path='/user' exact component={UsersDashboard} />
                   <PublicRoute path="/user/orders" component={Orders}  />
                   <PublicRoute path="/user/orderssheet" component={OrderSheet} />
                   <PublicRoute path="/user/projects" component={Projects}   />  

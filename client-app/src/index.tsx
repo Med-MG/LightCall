@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserHistory} from 'history';
 import {store, StoreContext} from './app/stores/Store';
 import 'react-toastify/dist/ReactToastify.min.css';
+import "react-datepicker/dist/react-datepicker.css";
 export const history = createBrowserHistory();
 ReactDOM.render(
 

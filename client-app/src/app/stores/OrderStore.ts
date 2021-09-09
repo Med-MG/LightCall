@@ -3,11 +3,8 @@ import agent from '../api/agent';
 
 import { v4 as uuid } from 'uuid';
 import { Order } from '../models/Order';
-<<<<<<< HEAD
 import { Statistic } from '../models/Statistic';
-=======
 import { OrderSheet } from '../models/OrderSheet';
->>>>>>> cc38b8b71e1245716b70c63a7beffdc362819467
 
 export default class OrderStore {
 
