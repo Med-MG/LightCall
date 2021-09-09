@@ -1,11 +1,17 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useStore } from "../../stores/Store";
+import UpsellForm from "./UpsellForm";
 
 function UpsellRow(){
-    const {upsellStore} = useStore();
+
+    const {upsellStore, modalStore} = useStore();
     const {selectUpsell, deleteUpsell , Upsells , upselltRegistery}  = upsellStore;
-    
+    function EditUpsel(id: string){
+        modalStore.openModal(<UpsellForm />);
+        selectUpsell(id)
+       }
     return ( 
         <>
         {console.log(upselltRegistery)}
@@ -22,7 +28,7 @@ function UpsellRow(){
                         {/* <td>{Upsell.Project}</td> */}
                         <td>
                             <div>
-                                <Link to="/Upsell/EditUpsell" onClick={()=> selectUpsell(Upsell.id) } className="btn btn-info mr-2" >Edit</Link>
+                                <button onClick={()=>EditUpsel(Upsell.id)} className="btn btn-info mr-2" >Edit</button>
                                 <button className="btn btn-danger" onClick={()=> deleteUpsell(Upsell.id) } >Delete</button>
                             </div>
                         </td>
