@@ -32,12 +32,12 @@ namespace Application.UpSell
                 var upSell = await _context.Upsell.FindAsync(request.Id);
                 
                 if(upSell != null && upSell.User == user ){
-                    var product =await _context.Products
+                   var product =await _context.Products
                                       .Where(p => p.upsell == upSell)
                                       .FirstOrDefaultAsync();
                     // product.upSell = null;
                     // _context.Products.Update(product);
-                    product.upSell= null;
+                    product.upsell= null;
                     _context.Products.Update(product);
                     _context.Upsell.Remove(upSell);
                     await _context.SaveChangesAsync();
