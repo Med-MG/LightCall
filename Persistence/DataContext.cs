@@ -21,6 +21,7 @@ namespace Persistence
         public  DbSet<Upsell> Upsell { get; set; }
         public  DbSet<Customer> Customers { get; set; }
         public  DbSet<Photo> Photos { get; set; }
+        public  DbSet<SMS> Smss { get; set; }
 
     }
 }
