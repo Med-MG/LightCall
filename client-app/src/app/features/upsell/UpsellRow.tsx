@@ -14,20 +14,27 @@ function UpsellRow(){
        }
     return ( 
         <>
+                    <tr>
+                        <td>eeee</td>
+                        <td>eeee</td> 
+                        <td>eeee</td>
+                        <td>eeee</td>
+                    </tr>
         {console.log(upselltRegistery)}
         {console.log(Upsells)}
             {Upsells.map((Upsell)=> {
                 return ( 
+                    
                     <tr key={Upsell.id}>
                         <td>{Upsell.name}</td>
                         {/* <td>{Upsell.project?.project_Type}</td> */}
                         
                         
-                        <td>{Upsell.product_ids ? Upsell.product_ids[0]?.name : null}</td>
+                        <td>{Upsell.product_ids  ? Upsell.product_ids [0]?.name : null}</td>
                         <td>{Upsell.project?.project_Type}</td> 
                         <td>{String(Upsell.status)}</td>
                         
-                         {console.log(Upsell.product_ids)}
+                         {console.log(Upsell.product_ids )}
                         {/* <td>{Upsell.Project}</td> */}
                         <td>
                             <div>

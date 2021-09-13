@@ -7,5 +7,6 @@ export interface UpSell {
     name : string;
     project_id: string;
     project?: Project;
-    product_ids: Product[];
+    product_ids : Product[];
+    Products_ids : Product[];
 }
