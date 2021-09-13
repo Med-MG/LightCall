@@ -16,12 +16,12 @@ function UpsellRow(){
        }
     return ( 
         <>
-                    <tr>
+                    {/* <tr>
                         <td>eeee</td>
                         <td>eeee</td> 
                         <td>eeee</td>
                         <td>eeee</td>
-                    </tr>
+                    </tr> */}
         {console.log(upselltRegistery)}
         {console.log(Upsells)}
             {Upsells.map((Upsell)=> {
