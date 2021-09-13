@@ -3,9 +3,11 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useStore } from "../../stores/Store";
 import UpsellForm from "./UpsellForm";
+const $ = require('jquery');
+$.DataTable = require('datatables.net');
 
 function UpsellRow(){
-
+    
     const {upsellStore, modalStore} = useStore();
     const {selectUpsell, deleteUpsell , Upsells , upselltRegistery}  = upsellStore;
     function EditUpsel(id: string){

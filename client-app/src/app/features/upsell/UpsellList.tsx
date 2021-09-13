@@ -3,21 +3,20 @@ import React, { useEffect } from "react";
 import { useStore } from "../../stores/Store";
 import UpsellRow from "./UpsellRow";
 //Datatable Modules
-// var dt = require( 'datatables.net' )();
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $ from 'jquery'; 
 
 export default observer(function UpsellList(){
-    // componentDidMount() {
-    //     $(document).ready(function () {
-    //         $('#myTable').DataTable();
-    //     });
-    //  }
-    // componentDidMount();
+    
     const {upsellStore} = useStore();
     useEffect(()=>{
-        upsellStore.loadUpSell()
+        upsellStore.loadUpSell();
+        $(document).ready(function () {
+            setTimeout(function(){
+            $('#table_id').DataTable();
+             } ,8000);
+        });
     } , [upsellStore])
     if(upsellStore.loadingInitial) return(<div>Loading...</div>)
     return(
@@ -27,7 +26,7 @@ export default observer(function UpsellList(){
                 <div className="card-body">
                     <div className="table-responsive">
                     {/* <CityForm/> */}
-                        <table id="example" className="table table-striped" >
+                        <table id="table_id" className="table table-striped" >
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
@@ -51,11 +50,5 @@ export default observer(function UpsellList(){
         
     )
 })
-// function componentDidMount() {
-//     $(document).ready(function () {
-//         setTimeout(function(){
-//         $('#example').DataTable();
-//          } ,1000);
-//     });
-// }
+
 
