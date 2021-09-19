@@ -72,11 +72,8 @@ function OrderSheetForm() {
         sheetConnect(values) 
     }
     return(
-            <div className="main-content">
+            <div>
         <section className="section">
-          <div className="section-header">
-              <h1>Orders</h1>
-          </div> 
           <div className="row">
               <div className="col-12">
                 <div className="card">

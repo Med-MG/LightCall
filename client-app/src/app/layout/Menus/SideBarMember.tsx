@@ -19,10 +19,13 @@ const SideBarMember = () => {
             </li>
             <li className="menu-header">Services</li>
             <li className="">
-                <Link to="/projects" className="nav-link" id="projects" ><i className="fas fa-user-secret"></i> <span>Projects</span></Link>
+                <Link to="/user/projects" className="nav-link" id="projects" ><i className="fas fa-user-secret"></i> <span>Projects</span></Link>
             </li>
             <li className="">
-                <Link to="/upsellManager" className="nav-link" id="upsellManager" ><i className="fas fa-user-secret"></i> <span>Upsell Manager</span></Link>
+                <Link to="/user/products" className="nav-link" id="projects" ><i className="fas fa-user-secret"></i> <span>Products</span></Link>
+            </li>
+            <li className="">
+                <Link to="/user/upsell" className="nav-link" id="upsellManager" ><i className="fas fa-user-secret"></i> <span>Upsell Manager</span></Link>
             </li>
             <li className="">
                 <Link to="/whatsappTemplate" className="nav-link" id="whatsappTemplate" ><i className="fas fa-user-secret"></i> <span>Whatsapp Template</span></Link>

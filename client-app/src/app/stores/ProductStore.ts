@@ -59,8 +59,10 @@ export default class ProductStore{
         }
     }
 
-    updateProduct = async (product: Product) =>{
+    updateProduct = async (product: Product , file: Blob) =>{
         this.loading = true ;
+        product.file = file;
+        console.log(product.file);
         try{
             await agent.Products.update(product);
             runInAction(()=>{

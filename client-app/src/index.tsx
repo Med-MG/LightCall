@@ -7,7 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserHistory} from 'history';
 import {store, StoreContext} from './app/stores/Store';
 import 'react-toastify/dist/ReactToastify.min.css';
+import "react-datepicker/dist/react-datepicker.css";
 export const history = createBrowserHistory();
+
+
 ReactDOM.render(
 
   <StoreContext.Provider value={store}>
@@ -16,6 +19,7 @@ ReactDOM.render(
   </Router>
   </StoreContext.Provider>
   ,
+  
   document.getElementById('root')
 );
 
@@ -24,4 +28,9 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
+
+function componentDidMount() {
+  throw new Error('Function not implemented.');
+  
+}
 

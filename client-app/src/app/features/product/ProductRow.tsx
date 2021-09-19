@@ -12,6 +12,11 @@ function ProductRow() {
 
    const {products , deleteProduct , selectProduct} = productStore;
 
+   function EditProd(id: string){
+    modalStore.openModal(<ProductForm />);
+    selectProduct(id)
+   }
+
     return ( 
         <>
             {products.map((product)=> (
@@ -27,8 +32,8 @@ function ProductRow() {
                         </div>
                         <div className="article-details">
                             <p>{product.description}.</p>
-                            <div className="article-cta">
-                                <button className="btn btn-primary" onClick={()=> modalStore.openModal(<ProductForm />)}>Read More</button>
+                            <div className="article-cta ">
+                                <button className="btn btn-primary" onClick={()=>EditProd(product.id)}>Show</button>
                             </div>
                         </div>
                     </article>

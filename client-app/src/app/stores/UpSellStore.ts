@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { UpSell } from "../models/UpSell";
 import {v4 as uuid} from 'uuid';
+import { string } from "yup/lib/locale";
 
 
 export default class UpSellStore{
@@ -27,9 +28,13 @@ export default class UpSellStore{
         try{
             var upsellls = await agent.Upsell.list();
             console.log(upsellls)
+            console.log("kfkfkkf");
+            
             upsellls.forEach(upsell =>{
                 this.upselltRegistery.set(upsell.id, upsell);
             })
+            
+            
             this.setLoadingInitial(false)
         }catch(error){
             console.log(error)
@@ -38,18 +43,18 @@ export default class UpSellStore{
     }
 
     createUpSell = async (upsell : UpSell)=>{
-        // console.log(upsell);
         this.loading = true ;
-        upsell.id = uuid()
+        upsell.id = uuid();
+        console.log(upsell)
         try{
             await agent.Upsell.create(upsell);
             runInAction(()=>{
                 this.upselltRegistery.set(upsell.id, upsell);
+                console.log('teees3');
                 this.loading = false ; 
             })
-            // console.log('ddddd')
         }catch(error){
-            // console.log('fffff')
+            console.log('fffff')
             runInAction(()=>{
                 this.loading = false ; 
             })

@@ -159,15 +159,24 @@ const Products = {
          })
         
     },
-    // requests.post<void>('/Product', product),
-    // uploadPhoto: (file: Blob) =>{
-    //     let formData = new FormData();
-    //     formData.append('File', file);
-    //     return axios.post<Photo>('/photo', formData, {
-    //         headers : {'Conetent-type':'multipart/form-data'}
-    //     })
-    // },
-    update: (product: Product) => requests.put<void>(`/Product/${product.id}`, product),
+    update: (product: Product ) => {
+        console.log(product);
+        let formData = new FormData();
+        formData.append('file', product.file!);
+        formData.append('projectId', product.id!);
+        formData.append('description', product.description!);
+        formData.append('quantity', product.quantity!);
+        formData.append('id', product.id!);
+        formData.append('name', product.name!);
+        // return axios.post<Photo>('/photo', formData, {
+        //     headers : {'Conetent-type':'multipart/form-data'}
+        // })
+         return axios.put<void>(`/Product/${product.id}`, formData, {
+             headers : {'Conetent-type':'multipart/form-data'}
+         })
+        
+    },
+    // update: (product: Product) => requests.put<void>(`/Product/${product.id}`, product),
     delete: (id: string) => requests.del<void>(`/Product/${id}`)
 }
 
