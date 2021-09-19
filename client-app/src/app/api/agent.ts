@@ -16,6 +16,7 @@ import { history } from '../..';
 import { ProfileFormValues } from './../models/User';
 import { Statistic } from '../models/Statistic';
 import { Photo } from '../models/Photo';
+import { Sms } from '../models/Sms';
 
 
 
@@ -103,6 +104,15 @@ const Staties = {
     create: (status: Status) => requests.post<void>('/Status', status),
     update: (status: Status) => requests.put<void>(`/Status/${status.id}`, status),
     delete: (id: string) => requests.del<void>(`/Status/${id}`)
+}
+
+
+const Smss = {
+    list: () => requests.get<Sms[]>('/Status'),
+    details: (id: string) => requests.get<Sms>(`/Sms/${id}`),
+    create: (sms: Sms) => requests.post<void>('/Sms', sms),
+    update: (sms: Sms) => requests.put<void>(`/Sms/${sms.id}`, sms),
+    delete: (id: string) => requests.del<void>(`/Sms/${id}`)
 }
 
 const Cities = {
@@ -193,7 +203,8 @@ const agent = {
     ShippingCompany,
     Projects,
     Products,
-    Upsell
+    Upsell,
+    Smss
 }
 
 export default agent;

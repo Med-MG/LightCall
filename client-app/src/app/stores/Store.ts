@@ -6,6 +6,8 @@ import OrderStore from './OrderStore';
 import ProjectStore from './ProjectStore';
 import OperateurStore from "./OperateurStore";
 import CityStore from "./CityStore";
+import SmsStore from "./SmsStore";
+
 import ShippingCompanystore from "./ShippingCompanyStore";
 import LayoutStore from './LayoutStore';
 import ProductStore from './ProductStore';
@@ -20,6 +22,7 @@ interface Store {
     projectStore : ProjectStore
     operateurStore : OperateurStore
     cityStore : CityStore
+    smsStore : SmsStore
     shippingCompanyStore : ShippingCompanystore
     layoutStore: LayoutStore
     productStore: ProductStore
@@ -39,7 +42,8 @@ export const store : Store = {
     layoutStore: new LayoutStore(),
     productStore: new ProductStore(),
     upsellStore : new UpSellStore(),
-    modalStore: new ModalStore()
+    modalStore: new ModalStore(),
+    smsStore : new SmsStore()
 
 }
 

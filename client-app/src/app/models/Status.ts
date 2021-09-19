@@ -3,4 +3,5 @@ export interface Status {
     statusType: string;
     statusPiority: string;
     closingStatus: boolean;
+    
 }
