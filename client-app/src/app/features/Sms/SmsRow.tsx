@@ -20,18 +20,18 @@ function SmsRow() {
     return ( 
         <>
         {smss.map((sms)=> {
-          console.log(sms.SmsName)
+          console.log(sms.smsName)
          return ( 
         <tr key={sms.id}>
-        <td>{sms.SmsName}</td>
-        <td>{sms.Message}</td>
-        <td>{(sms.project as Project).project_Type }</td>
-        <td>{(sms.status as Status).statusType }</td>
+        <td>{sms.smsName}</td>
+        <td>{sms.message}</td>
+        <td>{(sms.status as Status)?.statusType }</td>
+        <td>{(sms.project as Project)?.project_Type }</td>
         <td>
           <div >
 
 
-          <Popup position='center center' onClose={()=> canselSelectedSms()}  trigger={ () => {  selectSms(sms.id); return (<button  onClick={()=> selectSms(sms.id) } className="btn btn-info mr-2" >Edit </button>)} } >
+          <Popup position='center center' className="status" onClose={()=> canselSelectedSms()}  trigger={ () => {  selectSms(sms.id); return (<button  onClick={()=> selectSms(sms.id) } className="btn btn-info mr-2" >Edit </button>)} } >
             <SmsForm  />
           </Popup>
 

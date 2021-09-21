@@ -2,6 +2,8 @@ import { makeAutoObservable, runInAction  } from 'mobx';
 import agent from '../api/agent';
 import {Sms } from '../models/Sms';
 import {v4 as uuid} from 'uuid';
+import { Status } from '../models/Status';
+import { Project } from '../models/Project';
 
 export default class SmsStore {
  
@@ -10,6 +12,8 @@ export default class SmsStore {
     editMode = false;
     loading = false;
     loadingInitial = false;
+    
+    
 
     constructor(){
         makeAutoObservable(this)
@@ -53,13 +57,16 @@ export default class SmsStore {
    }
 
 
-   createSms = async (sms : Sms ) => {
+   createSms = async (sms : Sms , status : Status , project : Project ) => {
 
     this.loading = true ;
     sms.id = uuid();
     try {
         await agent.Smss.create(sms);
         runInAction(()=>{
+            
+            sms.status = status;
+            sms.project = project ;
             this.smsRegistry.set(sms.id, sms);
             this.loading = false ; 
         })
@@ -71,13 +78,15 @@ export default class SmsStore {
     }
    }
 
-   updateSms = async (sms : Sms ) => {
+   updateSms = async (sms : Sms , status : Status , project : Project) => {
 
     this.loading = true ;
     
     try {
         await agent.Smss.update(sms);
         runInAction(()=>{
+            sms.status = status;
+            sms.project = project ;
             this.smsRegistry.set(sms.id, sms);
             this.loading = false ; 
         })

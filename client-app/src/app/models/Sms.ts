@@ -3,9 +3,9 @@ import { Status } from "./Status";
 
 export interface Sms {
     id: string ;
-    SmsName: string;
-    Message: string;
-    IsActive: boolean;
+    smsName: string;
+    message: string;
+    isActive: boolean;
     project: Project | string;
     status: Status | string;
 }

@@ -1,19 +1,18 @@
 
-import StatusList from '../features/Status/StatusList'
+import SmsList from '../features/Sms/SmsList'
 
-
-const Main = () => {
+const Sms = () => {
   return (
     <div className="main-content">
       <section className="section">
         <div className="section-header">
-          <h1>Status</h1>
+          <h1>Sms</h1>
           
         </div>
-      <StatusList/>
+      <SmsList/>
       </section>
     </div>
   )
 }
 
-export default Main
+export default Sms

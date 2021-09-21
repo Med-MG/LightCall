@@ -29,8 +29,8 @@ namespace Application.Sms
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var status = await _context.Status.FindAsync(request.sms.StatusId);
-                var project = await _context.Projects.FindAsync(request.sms.ProjectId);
+                var status = await _context.Status.FindAsync(request.sms.Status);
+                var project = await _context.Projects.FindAsync(request.sms.Project);
 
                 var sms = new SMS
                 {

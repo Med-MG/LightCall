@@ -36,6 +36,7 @@ import OrderSheet from '../features/order/OrderSheetForm';
 import Product from './Product';
 import UsersDashboard from './../features/Member/UsersDashboard';
 import Upsell from './Upsell';
+import Sms from './Sms';
 
 
 function App() {
@@ -100,6 +101,7 @@ function App() {
                   <PrivateOperatorRoute path='/operator' exact component={OperatorDashoard} />
                   <PrivateOperatorRoute path='/operator/settings' component={OperatorDashoard} />
                   <PrivateOperatorRoute path="/operator/status" component={Status}/>
+                  <PrivateOperatorRoute path="/operator/sms" component={Sms}/>
 
                   <Route path="*" >
                     <Redirect to="/404" />

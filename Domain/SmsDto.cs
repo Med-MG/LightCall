@@ -10,8 +10,8 @@ namespace Domain
         public Guid Id { get; set; }
         public string SmsName { get; set; }
         public string Message { get; set; }
-        public Guid ProjectId { get; set; }
-        public Guid StatusId { get; set; }
+        public Guid Project { get; set; }
+        public Guid Status { get; set; }
         public bool IsActive { get; set; }
     }
 }

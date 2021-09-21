@@ -108,7 +108,7 @@ const Staties = {
 
 
 const Smss = {
-    list: () => requests.get<Sms[]>('/Status'),
+    list: () => requests.get<Sms[]>('/Sms'),
     details: (id: string) => requests.get<Sms>(`/Sms/${id}`),
     create: (sms: Sms) => requests.post<void>('/Sms', sms),
     update: (sms: Sms) => requests.put<void>(`/Sms/${sms.id}`, sms),
