@@ -846,6 +846,13 @@ select.form-control:not([size]):not([multiple]) {
   padding-right: 10px;
   margin-bottom: 0;
 }
+
+.card .card-header h3 {
+  line-height: 28px;
+  color: #6777ef;
+  padding-right: 10px;
+  margin-bottom: 0;
+}
 .card .card-header h4 + .card-header-action,
 .card .card-header h4 + .card-header-form {
   margin-left: auto;

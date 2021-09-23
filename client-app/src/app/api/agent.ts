@@ -17,6 +17,7 @@ import { ProfileFormValues } from './../models/User';
 import { Statistic } from '../models/Statistic';
 import { Photo } from '../models/Photo';
 import { Sms } from '../models/Sms';
+import { WhatTemp } from '../models/WhatTemp';
 
 
 
@@ -113,6 +114,14 @@ const Smss = {
     create: (sms: Sms) => requests.post<void>('/Sms', sms),
     update: (sms: Sms) => requests.put<void>(`/Sms/${sms.id}`, sms),
     delete: (id: string) => requests.del<void>(`/Sms/${id}`)
+}
+
+const WhatTemps = {
+    list: () => requests.get<WhatTemp[]>('/WhatTemp'),
+    details: (id: string) => requests.get<WhatTemp>(`/WhatTemp/${id}`),
+    create: (template: WhatTemp) => requests.post<void>('/WhatTemp', template),
+    update: (template: WhatTemp) => requests.put<void>(`/WhatTemp/${template.id}`, template),
+    delete: (id: string) => requests.del<void>(`/WhatTemp/${id}`)
 }
 
 const Cities = {
@@ -213,7 +222,8 @@ const agent = {
     Projects,
     Products,
     Upsell,
-    Smss
+    Smss,
+    WhatTemps
 }
 
 export default agent;

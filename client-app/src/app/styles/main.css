@@ -74,3 +74,12 @@ body {
 .order-overlay {
   background: rgba(0, 0, 0, 0.5) !important;
 }
+
+.small_text {
+  font-size: 14px;
+  font-weight: lighter;
+}
+
+.addTemp {
+  width: 200px;
+}

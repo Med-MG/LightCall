@@ -22,6 +22,7 @@ namespace Persistence
         public  DbSet<Customer> Customers { get; set; }
         public  DbSet<Photo> Photos { get; set; }
         public  DbSet<SMS> Smss { get; set; }
+        public  DbSet<WhatTemp> WhatTemps { get; set; }
 
     }
 }

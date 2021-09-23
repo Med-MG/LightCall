@@ -37,6 +37,7 @@ import Product from './Product';
 import UsersDashboard from './../features/Member/UsersDashboard';
 import Upsell from './Upsell';
 import Sms from './Sms';
+import WhatTemp from './WhatTemp';
 
 
 function App() {
@@ -102,6 +103,7 @@ function App() {
                   <PrivateOperatorRoute path='/operator/settings' component={OperatorDashoard} />
                   <PrivateOperatorRoute path="/operator/status" component={Status}/>
                   <PrivateOperatorRoute path="/operator/sms" component={Sms}/>
+                  <PrivateOperatorRoute path="/operator/whatsapp" component={WhatTemp}/>
 
                   <Route path="*" >
                     <Redirect to="/404" />
