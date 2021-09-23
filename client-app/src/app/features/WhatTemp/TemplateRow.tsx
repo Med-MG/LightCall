@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Popup from 'reactjs-popup';
@@ -18,11 +19,11 @@ function TemlateRow() {
     return ( 
         <>
         {Templates.map((temp)=> {
-          
+
          return ( 
         <tr key={temp.id}>
         <td>{temp.message}</td>
-        <td>{temp.date}</td>
+        <td>{moment(temp.date as Date).format('LLL')}</td>
         <td>
           <div >
 

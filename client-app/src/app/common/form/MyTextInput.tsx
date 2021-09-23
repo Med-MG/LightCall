@@ -11,7 +11,8 @@ interface Props {
     label?: string,
     dataIndicator?: string,
     tabIndex?: number,
-    validfeedback?: boolean
+    validfeedback?: boolean,
+    as? : string
 }
 
 const MyTextInput = (props: Props) => {
@@ -23,6 +24,7 @@ const MyTextInput = (props: Props) => {
         id={props.id}
         {...field} 
         {...props} 
+        
         className={`form-control ${props.className} ${meta.error && meta.touched && "is-invalid"} ${!meta.error && meta.touched && "is-valid"}`}  
         data-indicator={props.dataIndicator}
         

@@ -17,8 +17,6 @@ useEffect(()=>{
     whatTempStore.loadTemplate()
 } , [whatTempStore])
 
-
-
 if(whatTempStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
 
     return (

@@ -20,18 +20,9 @@ function TemplateForm() {
       date : undefined ,
 
     }
+    const [addTemplateForm ] = useState(initialValues)
 
-    useEffect(()=>{
 
-      
-  if(selectedTemplate){
-
-    
-
-  }
-  
-
-  } , [selectedTemplate , initialValues ])
 
    
 
@@ -43,11 +34,18 @@ function TemplateForm() {
       
       })
     
-    const [addTemplateForm , setaddTemplateForm] = useState(initialValues)
+  
 
 
-    function handleSubmit(values : WhatTemp  , {setErrors } : any) {
+    function handleSubmit(values : WhatTemp  , actions : any) {
+
+      if(selectedTemplate){
+        values.id = selectedTemplate.id
+      }
+
       selectedTemplate ? updateTemplate(values) : createTemplate(values) ;
+      actions.setSubmitting(false)
+
     }
 
 
@@ -66,15 +64,24 @@ function TemplateForm() {
          <Formik 
             initialValues={addTemplateForm}
             validationSchema={AddTemplateSchema}
-            onSubmit={(values, {setErrors}) =>{handleSubmit(values, {setErrors})}}
+            onSubmit={(values , actions ) =>{handleSubmit(values, actions)}}
 
              >
-             {({errors, touched, handleSubmit, isSubmitting, isValid, dirty }) => (
+             {({errors, touched, handleSubmit, isSubmitting, isValid, dirty , values , initialValues }) =>{
+               
+
+               if(selectedTemplate){
+
+                initialValues.message = selectedTemplate.message
+
+              }
+               
+               return(
 
                 <Form onSubmit={handleSubmit}  autoComplete="off">
 
                          <div className="form-group">
-                          <MyTextInput  type="message" name="message" label="Message" />
+                          <MyTextInput as='textarea'  type="message" name="message" label="Message" />
                         </div> 
                         
                         <div className="mr-auto">
@@ -83,7 +90,7 @@ function TemplateForm() {
                           </button>
                         </div>
                 </Form>
-             )}
+             )}}
          </Formik>
 
         </div>
