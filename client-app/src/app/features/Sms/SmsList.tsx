@@ -24,8 +24,9 @@ if(smsStore.loadingInitial) return( <div className='d-flex justify-content-cente
 
     return (
         <div>
-          <Popup position='center center' className="status"  trigger={()=>  {smsStore.canselSelectedSms();  return(<button  className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add SMS  </button>)}} >
-            <SmsForm  />
+          <Popup position='center center' className="status"  trigger={()=>  {smsStore.canselSelectedSms();  return(<button  className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add SMS  </button>)}} >{close => (
+            <SmsForm close={close}  />
+            )}
           </Popup>
                    
          <div className="card mt-4">

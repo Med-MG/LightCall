@@ -34,11 +34,13 @@ namespace Application.Sms
 
                 var sms = new SMS
                 {
+                    Id = request.sms.Id,
                     IsActive = request.sms.IsActive,
                     SmsName = request.sms.SmsName,
                     Message = request.sms.Message,
                     Status = status,
                     Project = project
+                    
                 };
 
 

@@ -9,7 +9,7 @@ import { Status } from '../../models/Status';
 import { Project } from '../../models/Project';
 
 
-function SmsForm() {
+function SmsForm(props : any) {
 
   const {smsStore , statusStore , projectStore} = useStore()
 
@@ -74,6 +74,8 @@ function SmsForm() {
       console.log(values);
       
       await selectedSms ? updateSms(values , status , project ) : createSms(values ,status , project) ;
+
+      props.close();
 
     }
 

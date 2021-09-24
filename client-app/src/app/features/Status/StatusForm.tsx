@@ -4,13 +4,14 @@ import MyTextInput from '../../common/form/MyTextInput';
 import * as Yup from 'yup';
 import { useStore } from '../../stores/Store';
 import {Status} from '../../models/Status'
+import { observer } from 'mobx-react-lite';
 
 
-function StatusForm() {
+function StatusForm(props : any) {
 
   const {statusStore} = useStore()
 
-  const {selectedStatus , updateStatus , createStatus} = statusStore
+  const {selectedStatus , updateStatus , createStatus  } = statusStore
 
     let initialValues : Status =  {
       id : '',
@@ -41,8 +42,14 @@ function StatusForm() {
     const [addStatusForm] = useState(initialValues)
 
 
-    function handleSubmit(values : Status  , {setErrors } : any) {
+    function handleSubmit(values : Status  , { resetForm } : any) {
+
       selectedStatus ? updateStatus(values) : createStatus(values) ;
+
+      resetForm()
+      
+      props.close();
+
     }
 
 
@@ -55,7 +62,7 @@ function StatusForm() {
          <Formik 
             initialValues={addStatusForm}
             validationSchema={AddStatusSchema}
-            onSubmit={(values, {setErrors}) =>{handleSubmit(values, {setErrors})}}
+            onSubmit={(values, { resetForm }) =>{handleSubmit(values, { resetForm })}}
 
              >
              {({errors, touched, handleSubmit, isSubmitting, isValid, dirty}) => (
@@ -83,7 +90,7 @@ function StatusForm() {
                         
                         <div className="form-group">
                           <button disabled={!isValid || !dirty || isSubmitting} type="submit" className="btn btn-primary btn-lg btn-block">
-                            Add Status
+                          {selectedStatus ? "Edit Status" : "Add Status"}
                           </button>
                         </div>
                 </Form>
@@ -95,4 +102,4 @@ function StatusForm() {
     );
 }
 
-export default StatusForm;
+export default observer(StatusForm);

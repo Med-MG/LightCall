@@ -11,6 +11,10 @@ export default class StatusStore {
     loading = false;
     loadingInitial = false;
 
+    setSubmiting = (state: boolean) => {
+        this.editMode = state;
+    }
+
     constructor(){
         makeAutoObservable(this)
     }

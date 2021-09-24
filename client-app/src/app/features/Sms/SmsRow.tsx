@@ -31,8 +31,9 @@ function SmsRow() {
           <div >
 
 
-          <Popup position='center center' className="status" onClose={()=> canselSelectedSms()}  trigger={ () => {  selectSms(sms.id); return (<button  onClick={()=> selectSms(sms.id) } className="btn btn-info mr-2" >Edit </button>)} } >
-            <SmsForm  />
+          <Popup position='center center' className="status" onClose={()=> canselSelectedSms()}  trigger={ () => {  selectSms(sms.id); return (<button  onClick={()=> selectSms(sms.id) } className="btn btn-info mr-2" >Edit </button>)} } >{close => (
+            <SmsForm close={close}  />
+            )}
           </Popup>
 
             {/* <Link to="/Status/EditStatus" onClick={()=> selectStatus(statu.id) } className="btn btn-info mr-2" >Edit</Link> */}

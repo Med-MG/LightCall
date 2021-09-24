@@ -13,7 +13,7 @@ function StatusRow() {
   
    const {statusStore} = useStore();
 
-   const {selectStatus , deleteStatus , status , canselSelectedStatus} = statusStore
+   const {selectStatus , deleteStatus , status , canselSelectedStatus , editMode , setSubmiting} = statusStore
 
     return ( 
         <>
@@ -27,8 +27,9 @@ function StatusRow() {
           <div >
 
 
-          <Popup position='center center' onClose={()=> canselSelectedStatus()}  trigger={ () => {  selectStatus(statu.id); return (<button  onClick={()=> selectStatus(statu.id) } className="btn btn-info mr-2" >Edit </button>)} } >
-            <StatusForm  />
+          <Popup  position='center center' className="status"  onClose={()=> canselSelectedStatus()}  trigger={ () => {  selectStatus(statu.id); return (<button  onClick={()=> selectStatus(statu.id) } className="btn btn-info mr-2" >Edit </button>)} } >{close => (
+            <StatusForm close={close} />
+            )}
           </Popup>
 
             {/* <Link to="/Status/EditStatus" onClick={()=> selectStatus(statu.id) } className="btn btn-info mr-2" >Edit</Link> */}
