@@ -21,7 +21,6 @@ function OperatorOrder() {
     var [timer , setTimer] = useState(100)
 
     useEffect(() => {
-      console.log(localStorage.getItem("timer"));
       setTimer(localStorage.getItem("timer"));
     },[] );
   

@@ -1,13 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import DatePicker from "react-datepicker";
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { PolarArea } from 'react-chartjs-2';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '../../stores/Store';
+import { Statistic } from '../../models/Statistic';
 
 const UsersDashboard = () => {
     const [startDate, setStartDate] = useState(new Date());
+
+    const {orderStore  } = useStore()
+    const {statistics} = orderStore
+    const [statisticsArray] = useState([])
+
+    useEffect(()=>{
+      orderStore.loadOrdersStatistic()
+  
+  } , [orderStore ])
+
     const dataPolar = {
       labels: [
         "new order",
@@ -20,7 +33,7 @@ const UsersDashboard = () => {
       ],
       datasets: [{
         label: 'My First Dataset',
-        data: [13, 16, 7, 3, 14, 15, 9],
+        data: [statistics?.ordersNew , statistics?.ordersConfirmer, statistics?.ordersNoAnswer, statistics?.ordersBusy, statistics?.ordersCancel, statistics?.ordersCallLater, statistics?.ordersDoubleCommande] as number[],
         backgroundColor: [
           'rgb(103, 119, 239)',
           'rgb(75, 192, 192)',
@@ -67,7 +80,7 @@ const UsersDashboard = () => {
                       <h4>Orders</h4>
                     </div>
                     <div className="card-body">
-                      10
+                      {statistics?.orders}
                     </div>
                   </div>
                 </div>
@@ -79,10 +92,10 @@ const UsersDashboard = () => {
                 </div>
                   <div className="card-wrap">
                     <div className="card-header">
-                      <h4>Confirmed</h4>
+                      <h4>New Orders</h4>
                     </div>
                     <div className="card-body">
-                      10
+                    {statistics?.ordersNew}
                     </div>
                   </div>
                 </div>
@@ -96,10 +109,10 @@ const UsersDashboard = () => {
                 </div>
                   <div className="card-wrap">
                     <div className="card-header">
-                      <h4>Cancelled</h4>
+                      <h4>Confirmed</h4>
                     </div>
                     <div className="card-body">
-                      10
+                    {statistics?.ordersConfirmer}
                     </div>
                   </div>
                 </div>
@@ -114,7 +127,7 @@ const UsersDashboard = () => {
                       <h4>Delivered</h4>
                     </div>
                     <div className="card-body">
-                      10
+                    {statistics?.ordersLivrer}
                     </div>
                   </div>
                 </div>
@@ -128,10 +141,10 @@ const UsersDashboard = () => {
                 </div>
                   <div className="card-wrap">
                     <div className="card-header">
-                      <h4>Return</h4>
+                      <h4>Cancelled</h4>
                     </div>
                     <div className="card-body">
-                      10
+                    {statistics?.ordersCancel}
                     </div>
                   </div>
                 </div>
@@ -143,10 +156,10 @@ const UsersDashboard = () => {
                   </div>
                   <div className="card-wrap">
                     <div className="card-header">
-                      <h4>injoignable</h4>
+                      <h4>Call Later</h4>
                     </div>
                     <div className="card-body">
-                      10
+                    {statistics?.ordersCallLater}
                     </div>
                   </div>
                 </div>
@@ -160,10 +173,10 @@ const UsersDashboard = () => {
                 </div>
                   <div className="card-wrap">
                     <div className="card-header">
-                      <h4>pending</h4>
+                      <h4>Busy</h4>
                     </div>
                     <div className="card-body">
-                      10
+                    {statistics?.ordersBusy}
                     </div>
                   </div>
                 </div>
@@ -175,10 +188,10 @@ const UsersDashboard = () => {
                   </div>
                   <div className="card-wrap">
                     <div className="card-header">
-                      <h4>shipping</h4>
+                      <h4>Double Commande</h4>
                     </div>
                     <div className="card-body">
-                      10
+                    {statistics?.ordersDoubleCommande}
                     </div>
                   </div>
                 </div>
@@ -337,4 +350,4 @@ const UsersDashboard = () => {
     )
 }
 
-export default UsersDashboard
+export default observer(UsersDashboard) ;

@@ -64,38 +64,44 @@ namespace Persistence
 
                 }, new StatusModel
                 {
-                    StatusPiority = 5,
+                    StatusPiority = 6,
                     StatusType= "confirmer",
                     ClosingStatus = false ,
 
                 }, new StatusModel
                 {
-                    StatusPiority = 6,
+                    StatusPiority = 7,
                     StatusType= "livrer",
                     ClosingStatus = true ,
 
                 },new StatusModel
                 {
-                    StatusPiority = 4,
+                    StatusPiority = 5,
                     StatusType= "no answer",
                     ClosingStatus = true ,
 
                 },new StatusModel
                 {
-                    StatusPiority = 7,
+                    StatusPiority = 8,
                     StatusType= "cancelled",
                     ClosingStatus = true ,
 
                 },new StatusModel
                 {
-                    StatusPiority = 3,
+                    StatusPiority = 4,
                     StatusType= "busy",
                     ClosingStatus = true ,
 
                 },new StatusModel
                 {
-                    StatusPiority = 2,
+                    StatusPiority = 3,
                     StatusType= "call later",
+                    ClosingStatus = true ,
+
+                },new StatusModel
+                {
+                    StatusPiority = 2,
+                    StatusType= "double commande",
                     ClosingStatus = true ,
 
                 },

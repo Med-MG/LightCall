@@ -30,12 +30,8 @@ function TemplateForm() {
       message: Yup.string()
           .min(3, 'Too Short!')
           .max(1000, 'Too Long!').required()
-        
-      
-      })
-    
-  
 
+      })
 
     function handleSubmit(values : WhatTemp  , actions : any) {
 

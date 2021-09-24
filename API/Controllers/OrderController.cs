@@ -115,6 +115,10 @@ namespace API.Controllers
             statistics.ordersConfirmer = query.Where(o => o.Status.StatusType == "confirmer" ).Count();
             statistics.ordersNew = query.Where(o => o.Status.StatusType == "new order" ).Count();
             statistics.ordersLivrer = query.Where(o => o.Status.StatusType == "livrer").Count();
+            statistics.ordersBusy = query.Where(o => o.Status.StatusType == "busy").Count();
+            statistics.ordersCancel = query.Where(o => o.Status.StatusType == "cancelled").Count();
+            statistics.ordersCallLater = query.Where(o => o.Status.StatusType == "call later").Count();
+            statistics.ordersDoubleCommande = query.Where(o => o.Status.StatusType == "double commande").Count();
 
             return statistics;
 
@@ -176,65 +180,65 @@ namespace API.Controllers
         }
 
 
-        //[HttpPost("Shopify/{id}")]
-        //public async Task<IActionResult> ShopifyOrder(Guid id, ShopifyOrderDto shopifyOrder)
-        //{
+        [HttpPost("Shopify/{id}")]
+        public async Task<IActionResult> ShopifyOrder(Guid id, ShopifyOrderDto shopifyOrder)
+        {
 
 
 
 
-        //    Project project = _context.Projects.FindAsync(id).Result;
+            Project project = _context.Projects.FindAsync(id).Result;
 
-        //    Domain.Customer customer = new Domain.Customer
-        //    {
-        //        FullName = shopifyOrder.customer.first_name + " " + shopifyOrder.customer.last_name,
-        //        Email = shopifyOrder.customer.email,
-        //        Phone = shopifyOrder.customer.default_address.phone,
-        //        FullAdresse = shopifyOrder.customer.default_address.address1 + " , " + shopifyOrder.customer.default_address.address1
+            Domain.Customer customer = new Domain.Customer
+            {
+                FullName = shopifyOrder.customer.first_name + " " + shopifyOrder.customer.last_name,
+                Email = shopifyOrder.customer.email,
+                Phone = shopifyOrder.customer.default_address.phone,
+                FullAdresse = shopifyOrder.customer.default_address.address1 + " , " + shopifyOrder.customer.default_address.address1
 
-        //    };
+            };
 
-        //    var orderId = shopifyOrder.id;
-        //    var price = shopifyOrder.total_price;
+            var orderId = shopifyOrder.id;
+            var price = shopifyOrder.total_price;
 
-        //    Order order = new Order
-        //    {
-        //        OrderId = orderId.ToString(),
-        //        Price = Decimal.Parse(price),
-        //        Project = project,
-        //        Customer = customer
-        //    };
-        //    var status = _context.Status.Where(s => s.StatusType == "new order").FirstOrDefault();
-        //    order.Status = status;
+            Order order = new Order
+            {
+                OrderId = orderId.ToString(),
+                Price = Decimal.Parse(price),
+                Project = project,
+                Customer = customer
+            };
+            var status = _context.Status.Where(s => s.StatusType == "new order").FirstOrDefault();
+            order.Status = status;
 
-        //    List<Product> products = new List<Product>();
+            List<Product> products = new List<Product>();
 
-        //    shopifyOrder.line_items.ForEach((item) =>
-        //    {
+            shopifyOrder.line_items.ForEach((item) =>
+            {
 
-        //        Product product = new Product
-        //        {
-        //            Name = item.name,
-        //            Quantity = item.quantity,
-        //            Project = project
-        //        };
-
-
-        //        products.Add(product);
-
-        //    });
+                Product product = new Product
+                {
+                    Name = item.name,
+                    Quantity = item.quantity,
+                    Project = project
+                };
 
 
-        //    order.Product = products;
+                products.Add(product);
+
+            });
+
+
+            order.Product = products;
 
 
 
-        //    await _context.Orders.AddAsync(order);
-        //    await _context.SaveChangesAsync();
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
 
-        //    return Ok();
+            return Ok();
 
-        //}
+        }
 
         [HttpPost]
         [Route("WooCommerce/{id}")]
