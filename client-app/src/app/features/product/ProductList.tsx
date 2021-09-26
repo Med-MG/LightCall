@@ -13,7 +13,6 @@ export default observer(function ProductList(){
     if(productStore.loadingInitial) return(<div>Loading...</div>)
     return(
         <div className="row">
-           {/* <Link to="/cities/creatCity" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add City  </Link> */}
            <ProductRow/>            
         </div>
     )

@@ -23,7 +23,8 @@ if(statusStore.loadingInitial) return( <div className='d-flex justify-content-ce
 
     return (
         <div>
-          <Popup position='center center' className="status"  trigger={()=>  {statusStore.canselSelectedStatus();  return(<button  className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add Status  </button>)}} >{close => (
+          <Popup position='center center' className="status"  trigger={()=>  {statusStore.canselSelectedStatus();  return(<button  className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add Status  </button>)}} >
+            {close => (
             <StatusForm close={close}  />
             )}
           </Popup>

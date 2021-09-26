@@ -14,7 +14,7 @@ import PhotoWidgetDropZone from "../../common/imageUpload/PhotoWidgetDropZone";
 //   loading: boolean;
 // }
 export default observer(function ProductForm(){
-    const {productStore , projectStore} = useStore();
+    const {productStore , projectStore, modalStore} = useStore();
     const {creatProduct , updateProduct , productSelected ,  uploading , loading} = productStore;
     const {projects} = projectStore;
     const [files, setFiles] = useState<any>([]);
@@ -76,6 +76,8 @@ export default observer(function ProductForm(){
             cropper.getCroppedCanvas().toBlob(blob =>  creatProduct(values , blob!));
         }
         }
+
+        modalStore.closeModal();
         
     }
     //uplod widget

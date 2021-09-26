@@ -15,7 +15,7 @@ export default observer(function UpsellList(){
         $(document).ready(function () {
             setTimeout(function(){
             $('#table_id').DataTable();
-             } ,8000);
+             } ,2000);
         });
     } , [upsellStore])
     if(upsellStore.loadingInitial) return(<div>Loading...</div>)

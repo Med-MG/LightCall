@@ -8,7 +8,10 @@ import { Link } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik'
 import { useState } from 'react';
 import ProjectForm from './ProjectForm';
-
+//Datatable Modules
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css"
+import $ from 'jquery';
 
 function ProjectsList() {
 
@@ -21,7 +24,12 @@ function ProjectsList() {
 
 useEffect(()=>{
     loadProjects()
-    statusStore.loadStatus()
+    statusStore.loadStatus();
+    $(document).ready(function () {
+      setTimeout(function(){
+      $('#table_prj').DataTable();
+       } ,2000);
+    });
 } , [projectStore , statusStore])
 
 
@@ -104,7 +112,7 @@ function handleSubmit(values : any  , {setErrors } : any) {
          <div className="card mt-4">
 
                   <div className="card-body">
-                    <table className="table">
+                    <table className="table" id="table_prj">
                       <thead>
                         <tr>
                           <th scope="col">Project Name</th>

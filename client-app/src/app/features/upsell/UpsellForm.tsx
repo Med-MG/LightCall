@@ -8,7 +8,7 @@ import { Product } from "../../models/Product";
 import { UpSell } from "../../models/UpSell";
 import { useStore } from "../../stores/Store";
 
-export default observer(function Upsell(){
+export default observer(function UpsellForm(props : any){
     const {upsellStore , productStore , projectStore} = useStore();
     const { upsellSelected ,createUpSell , updateUsell}  = upsellStore;
     let initialValues  = upsellSelected ?? {
@@ -74,6 +74,7 @@ export default observer(function Upsell(){
         values.project_id = projet;
         console.log(values); 
         upsellSelected ? updateUsell(values) : createUpSell(values) ;
+        props.close();
     }
     // ui
     return(
