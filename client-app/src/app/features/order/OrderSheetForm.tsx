@@ -16,58 +16,59 @@ function OrderSheetForm() {
         sheet: '',
         // project_id : '',
         // project : undefined,
-        Products_ids : []
+        project_id : '',
+        project : undefined,
     }
 
     const [addSheetInfo] = useState(initialValues)
 
      //get all project
-    //  const {projects} = projectStore;
-    //  var ProjecttName=[{}]
+     const {projects} = projectStore;
+     var ProjecttName=[{}]
  
-    //  useEffect(()=>{
-    //    projectStore.loadProjects();
-    //  } , [projectStore])
+     useEffect(()=>{
+       projectStore.loadProjects();
+     } , [projectStore])
  
-    //  projects.map(project =>{
-    //    ProjecttName.push({
-    //      value:project.id,
-    //      label:project.project_Type
-    //    })
-    //  })
-    // //  console.log(ProjecttName[1]);
-    //  var projet : string = '';
+     projects.map(project =>{
+       ProjecttName.push({
+         value:project.id,
+         label:project.project_Type
+       })
+     })
+    //  console.log(ProjecttName[1]);
+     var projet : string = '';
      
-    //  const onchangeProject  = (e : any)=>{
-    //    projet = e.value
-    //  }
+     const onchangeProject  = (e : any)=>{
+       projet = e.value
+     }
      //end
      //get all product
-        const {products} = productStore;
-        var ProductName=[{}]
+        // const {products} = productStore;
+        // var ProductName=[{}]
 
-        useEffect(()=>{
-          productStore.loadProducts()
-        } , [productStore])
+        // useEffect(()=>{
+        //   productStore.loadProducts()
+        // } , [productStore])
 
-        products.map(product =>{
-          ProductName.push({
-            value:product.id,
-            label:product.name
-          })
-        })
-        const allProduct :Product[] = [];
+        // products.map(product =>{
+        //   ProductName.push({
+        //     value:product.id,
+        //     label:product.name
+        //   })
+        // })
+        // const allProduct :Product[] = [];
         
-        const onchange  = (e : any)=>{
-          e.forEach((el : any )  => {
-            allProduct.push(el.value)
-          });
-        } 
+        // const onchange  = (e : any)=>{
+        //   e.forEach((el : any )  => {
+        //     allProduct.push(el.value)
+        //   });
+        // } 
       //end
     function handleSubmit(values : OrderSheet  , {setErrors } : any) {
         console.log(values)
-        console.log(allProduct)
-        values.Products_ids = allProduct;
+        console.log(projet)
+        values.project_id = projet;
         // values.project_id = projet;
         sheetConnect(values) 
     }
@@ -97,7 +98,8 @@ function OrderSheetForm() {
                          <MyTextInput type="sheet" placeholder="sheet name" name="sheet" label="sheet" />
                        </div>
                        <div className="form-group">
-                          <Select isMulti options={ProductName} onChange={onchange} />
+                          <p>project</p>
+                          <Select isMulti options={ProjecttName} onChange={onchangeProject} />
                         </div>
                        {/* <div className="form-group">
                           <Select options={ProjecttName} onChange={onchangeProject} />

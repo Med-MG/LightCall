@@ -9,7 +9,7 @@ const ModalContainer = () => {
     return (
         <Modal show={modal.open} onHide={closeModal}  >
             <Modal.Header closeButton>
-                <Modal.Title>Stack Trace</Modal.Title>
+                {/* <Modal.Title>Stack Trace</Modal.Title> */}
             </Modal.Header>
             <Modal.Body>
                 {modal.body}

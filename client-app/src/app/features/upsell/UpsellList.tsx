@@ -2,10 +2,12 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { useStore } from "../../stores/Store";
 import UpsellRow from "./UpsellRow";
+import loaderAnimation from "../../assets/loader.json";
 //Datatable Modules
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $ from 'jquery'; 
+import Lottie from "lottie-react";
 
 export default observer(function UpsellList(){
     
@@ -18,7 +20,7 @@ export default observer(function UpsellList(){
              } ,2000);
         });
     } , [upsellStore])
-    if(upsellStore.loadingInitial) return(<div>Loading...</div>)
+    if(upsellStore.loadingInitial) return(<div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
     return(
         <div>
            {/* <Link to="/cities/creatCity" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add City  </Link> */}

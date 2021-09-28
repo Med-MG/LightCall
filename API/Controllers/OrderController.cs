@@ -353,32 +353,24 @@ namespace API.Controllers
             var response = request.Execute();
             Guid idStatus = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
             StatusModel status = await _context.Status.FindAsync(idStatus);
-            Guid idprj = Guid.Parse("3FA85F64-5717-4562-B3FC-2C963F66AFA6");
-            Project project = await _context.Projects.FindAsync(idprj);
-            // Project project = await _context.Projects.FindAsync(sheetInfo.Project_id);
-            // Guid prddd = Guid.Parse("EA519F8E-E666-4EF7-91AA-EAA572F74A9A");
-            // Product prodd = await _context.Products.FindAsync(prddd);
-            List<Product> Products = new List<Product>();
+            // Guid idprj = Guid.Parse("3FA85F64-5717-4562-B3FC-2C963F66AFA6");
+            Project project = await _context.Projects.FindAsync(sheetInfo.Project_id);
+            // List<Product> Products = new List<Product>();
             // Products.Add(prodd);
-            foreach (var product in sheetInfo.Products_ids)
-                {
-                    Products.Add(await _context.Products.FindAsync(product));
-                }
+            // foreach (var product in sheetInfo.Products_ids)
+            //     {
+            //         Products.Add(await _context.Products.FindAsync(product));
+            //     }
             var values = response.Values;
             if(values != null && values.Count > 0){
                 foreach(var row in values){
-                    // var loool = row[0].ToString().Trim();
-                    // var mppp = loool;
                     orderList.Add(new Order
                             {
                                 OrderId = row[0].ToString().Trim(),
                                 Description = "desk",
-                                
-                                //Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
                                 Price = 3,
                                 Status = status,
                                 Project = project,
-                                Product = Products,
                             }); ;
                 }
                 await _context.Orders.AddRangeAsync(orderList);
@@ -387,9 +379,5 @@ namespace API.Controllers
             return Ok();
         }
 
-        
-        // public async void SeedOrder(){
-            
-        // }
     }
 }

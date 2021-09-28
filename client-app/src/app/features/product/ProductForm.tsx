@@ -15,7 +15,7 @@ import PhotoWidgetDropZone from "../../common/imageUpload/PhotoWidgetDropZone";
 // }
 export default observer(function ProductForm(){
     const {productStore , projectStore, modalStore} = useStore();
-    const {creatProduct , updateProduct , productSelected ,  uploading , loading} = productStore;
+    const {creatProduct , updateProduct , productSelected ,  uploading , loading , setLoadingInitial} = productStore;
     const {projects} = projectStore;
     const [files, setFiles] = useState<any>([]);
     const [cropper, setCropper] = useState<Cropper>();
@@ -78,6 +78,7 @@ export default observer(function ProductForm(){
         }
 
         modalStore.closeModal();
+        
         
     }
     //uplod widget

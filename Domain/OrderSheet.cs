@@ -10,6 +10,8 @@ namespace Domain
         public string sheet { get; set; } 
         // public Guid Project_id { get; set; }
 
-        public ICollection<Guid> Products_ids { get; set; }
+        // public ICollection<Guid> Products_ids { get; set; }
+
+        public Guid Project_id { get; set; }
     }
 }
