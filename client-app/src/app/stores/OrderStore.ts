@@ -15,28 +15,34 @@ export default class OrderStore {
     loadingInitial = false;
     assignedOrder: Order | undefined = undefined;
     statistics : Statistic | undefined = undefined;
+    orderFiler : Order[]  = Array.from(this.ordersRegistry.values());
+    // filterMode = false;
 
     constructor() {
         makeAutoObservable(this)
     }
 
     get orders() {
+        // return Array.from(this.ordersRegistry.values());
+        return this.orderFiler;
+    }
 
-        return Array.from(this.ordersRegistry.values());
-
+    set orders(order : any){
+        const AllOrder = Array.from(this.ordersRegistry.values());
+        AllOrder.filter(x => x.orderId = order)
+        this.orderFiler = AllOrder;
     }
 
     loadOrders = async () => {
-
         this.setLoadingInitial(true)
         try {
             var orders = await agent.Orders.list();
-
+            
 
             orders.forEach(order => {
                 this.ordersRegistry.set(order.id, order);
             })
-            
+            this.orderFiler = orders;
             this.setLoadingInitial(false)
 
         } catch (error) {
@@ -227,6 +233,15 @@ export default class OrderStore {
         }
     }
 
+    filterOrder = async(orderId : string) =>{
+        // this.filterMode = true
+        // const AllOrder = Array.from(this.ordersRegistry.values());
+        // AllOrder.filter(x => x.orderId == orderId);
+
+        this.orders.filter(x => x.orderId == orderId);
+
+        // return AllOrder;
+    }
 
 
 }

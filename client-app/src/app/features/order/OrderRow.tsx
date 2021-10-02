@@ -1,42 +1,41 @@
  import { observer } from 'mobx-react-lite';
 import React , {useState , SyntheticEvent} from 'react';
 import { ChangeEvent } from 'react';
+import { Order } from '../../models/Order';
 import { useStore } from '../../stores/Store';
 
+interface props{
+  allorder : Order[];
+}
 
-
-function OrderRow() {
+function OrderRow(props : any) {
 
   const [target, setTarget] = useState('');
-   const {orderStore , statusStore} = useStore();
-   
-   const {orders , deleteOrder , loading , ordersRegistry , updateOrder} = orderStore
-   const {status  , statusRegistry  } = statusStore
+  const {orderStore , statusStore} = useStore();
+  const {orders , deleteOrder , loading , ordersRegistry , updateOrder , orderFiler} = orderStore
+  const {status  , statusRegistry  } = statusStore
+  console.log(orders);
 
-   console.log(orders);
+  
    
 
-   const handleOrderDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
+  const handleOrderDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
     setTarget(id);
     deleteOrder(id)
-}
-   const StatusChange = (e: ChangeEvent<HTMLSelectElement> , id : string) => {
-     var statusId = e.target.value;
+  }
+  const StatusChange = (e: ChangeEvent<HTMLSelectElement> , id : string) => {
+    var statusId = e.target.value;
     var order = ordersRegistry.get(id)
     var status = statusRegistry.get(statusId)
     order!.status = status! 
 
     updateOrder(order!);
-    
-    
-
-    
-}
+  }
 
 
     return ( 
         <>
-       
+        {/* {console.log('testtt',props.allorder)} */}
         {orders.map((order)=> {
          return ( 
         <tr key={order.id}>
