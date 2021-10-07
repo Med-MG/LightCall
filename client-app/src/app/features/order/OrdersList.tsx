@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from "mobx-react-lite";
 import Lottie from "lottie-react";
 import loaderAnimation from "../../assets/loader.json";
@@ -8,15 +8,28 @@ import {  useStore } from '../../stores/Store'
 
 function OrdersList() {
 
-    const {orderStore , statusStore} = useStore();
+  const {orderStore , statusStore} = useStore();
+    //filter
+  const [orderId , setOrderId] =  useState('');
+  const [Allorder , setAllorder ] =  useState(orderStore.orders);
     
 
+  useEffect(()=>{
+      orderStore.loadOrders()
+      statusStore.loadStatus()
+  } , [orderStore , statusStore])
 
-useEffect(()=>{
-    orderStore.loadOrders()
-    statusStore.loadStatus()
-} , [orderStore , statusStore])
+  const handleSearch = () => {
+    // console.log('ffjfjf',orderStore.orders);
+    // setAllorder(orderStore.orders);
+    // console.log("deeee",Allorder)
+    orderStore.orders= orderId;
+    // console.log(orderId)
+    // setAllorder(Allorder.filter(x => x.orderId == orderId))
+    // console.log(Allorder)
+  }
 
+  
 
 if(orderStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
 
@@ -24,7 +37,10 @@ if(orderStore.loadingInitial) return( <div className='d-flex justify-content-cen
         <div>
         
           <div className="card mt-4">
-
+                  <div>
+                    <input type="text" placeholder="select Project" onChange={(e) => setOrderId(e.target.value)}/>
+                    <button onClick={handleSearch}>Search</button>
+                  </div>
                   <div className="card-body">
                     <table className="table">
                       <thead>
@@ -42,7 +58,7 @@ if(orderStore.loadingInitial) return( <div className='d-flex justify-content-cen
                       </thead>
                       <tbody>
                       
-                     <OrderRow/>
+                     <OrderRow allorder={Allorder}/>
 
                       </tbody>
                     </table>

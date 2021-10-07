@@ -6,5 +6,7 @@ export interface OrderSheet {
     sheet: string;
     // project_id : string;
     // project?: Project;
-    Products_ids: Product[];
+    // Products_ids: Product[];
+    project_id: string;
+    project?: Project;
 }

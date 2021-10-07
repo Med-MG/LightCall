@@ -18,12 +18,12 @@ useEffect(()=>{
 } , [statusStore])
 
 
-
-if(statusStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
+if(statusStore.loadingInitial || statusStore.loading) return( <div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
 
     return (
         <div>
-          <Popup position='center center' className="status"  trigger={()=>  {statusStore.canselSelectedStatus();  return(<button  className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add Status  </button>)}} >{close => (
+          <Popup position='center center' className="status"  trigger={()=>  {statusStore.canselSelectedStatus();  return(<button  className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add Status  </button>)}} >
+            {close => (
             <StatusForm close={close}  />
             )}
           </Popup>

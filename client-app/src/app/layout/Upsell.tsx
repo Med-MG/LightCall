@@ -13,7 +13,7 @@ const Upsell = () =>{
             <div className="section-header">
                 <h1>Upsell</h1>
             <div className="article-cta section-header-breadcrumb">
-                <button className="btn btn-primary"  onClick={()=>modalStore.openModal(<UpsellForm />)}>Add Product</button>
+                <button className="btn btn-primary"  onClick={()=>modalStore.openModal(<UpsellForm />)}>Add Upsell</button>
             </div>
             </div> 
             <Switch>

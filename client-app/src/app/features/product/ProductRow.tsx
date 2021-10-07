@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import { error } from 'node:console';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -6,7 +7,7 @@ import ProductForm from './ProductForm';
 
 
 
-function ProductRow() {
+export default observer(function ProductRow() {
 
    const {productStore , modalStore} = useStore();
 
@@ -24,7 +25,7 @@ function ProductRow() {
                     <article className="article">
                         <div className="article-header">
                             {console.log(product)}
-                            <div className="article-image" data-background="../assets/img/news/img08.jpg" style={{ backgroundImage: `url(${product.photos![0].url})`}}>
+                            <div className="article-image" data-background="../assets/img/news/img08.jpg" style={{ backgroundImage: `url(${product.photos && product.photos!.length>0 ? product.photos![0].url : "../assets/img/news/img08.jpg"})`}}>
                             </div>
                             <div className="article-title">
                                 <h2><a href="#">{product.name}</a></h2>
@@ -42,6 +43,4 @@ function ProductRow() {
                 )}
         </>
     );
-}
-
-export default ProductRow;
+})
