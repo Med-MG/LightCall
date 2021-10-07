@@ -28,9 +28,26 @@ export default class OrderStore {
     }
 
     set orders(order : any){
-        const AllOrder = Array.from(this.ordersRegistry.values());
-        AllOrder.filter(x => x.orderId = order)
-        this.orderFiler = AllOrder;
+        // const AllOrder = Array.from(this.ordersRegistry.values());
+        // AllOrder.filter(x => x.orderId = order)
+        // this.orderFiler = AllOrder;
+        console.log(order[0])
+        switch (order[1]) {
+            case 'ProjectName':
+                this.orderFiler.filter(x => x.project.project_Type == order[0])
+                break;
+            case 'Costumer':
+                this.orderFiler = this.orderFiler.filter(x => x.customer?.fullName == order[0])
+                console.log('frfr',this.orderFiler)
+                // this.orderFiler = AllOrder;
+                break;
+            case 'Phone':
+                this.orderFiler.filter(x => x.customer.phone == order[0])
+                break;
+        
+            default:
+                break;
+        }
     }
 
     loadOrders = async () => {
@@ -237,7 +254,7 @@ export default class OrderStore {
         // this.filterMode = true
         // const AllOrder = Array.from(this.ordersRegistry.values());
         // AllOrder.filter(x => x.orderId == orderId);
-
+        
         this.orders.filter(x => x.orderId == orderId);
 
         // return AllOrder;

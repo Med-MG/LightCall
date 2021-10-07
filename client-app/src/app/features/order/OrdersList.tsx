@@ -4,15 +4,30 @@ import Lottie from "lottie-react";
 import loaderAnimation from "../../assets/loader.json";
 import {  useStore } from '../../stores/Store'
  import OrderRow from './OrderRow';
+ import Select from 'react-select';
 
 
 function OrdersList() {
 
-  const {orderStore , statusStore} = useStore();
+  const {orderStore , projectStore ,statusStore} = useStore();
     //filter
-  const [orderId , setOrderId] =  useState('');
+  const [orderId , setOrder] =  useState(["" , ""]);
   const [Allorder , setAllorder ] =  useState(orderStore.orders);
-    
+
+  //get all project
+    const {projects} = projectStore;
+    var ProjecttName=[{}]
+
+    useEffect(()=>{
+      projectStore.loadProjects();
+    } , [projectStore])
+
+    projects.map(project =>{
+      ProjecttName.push({
+        value:project.id,
+        label:project.project_Type
+      })
+    })
 
   useEffect(()=>{
       orderStore.loadOrders()
@@ -23,6 +38,7 @@ function OrdersList() {
     // console.log('ffjfjf',orderStore.orders);
     // setAllorder(orderStore.orders);
     // console.log("deeee",Allorder)
+    console.log('ddddd',orderId);
     orderStore.orders= orderId;
     // console.log(orderId)
     // setAllorder(Allorder.filter(x => x.orderId == orderId))
@@ -38,7 +54,15 @@ if(orderStore.loadingInitial) return( <div className='d-flex justify-content-cen
         
           <div className="card mt-4">
                   <div>
-                    <input type="text" placeholder="select Project" onChange={(e) => setOrderId(e.target.value)}/>
+                    <input type="text" placeholder="select Project" name="ProjectName" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
+                    {/* <Select options={ProjecttName} placeholder="select Project" name="ProjectName" onChange={(e) => setOrder([e?.value , e.target.name])} /> */}
+                    {/* <input type="date" placeholder="YY/MM/DD" name="Date" onChange={(e) => setOrder([e.target.value , e.target.name])}/> */}
+                    <input type="text" placeholder="Customer" name="Costumer" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
+
+                    <input type="text" placeholder="Phone" name="Phone" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
+                    <input type="text" placeholder="Select Status" name="OrderStatus" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
+                    <input type="text" placeholder="select City" name="City" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
+                    <input type="text" placeholder="select Product" name="Product" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
                     <button onClick={handleSearch}>Search</button>
                   </div>
                   <div className="card-body">
