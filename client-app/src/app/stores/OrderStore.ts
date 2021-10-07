@@ -18,6 +18,8 @@ export default class OrderStore {
     orderFiler : Order[]  = Array.from(this.ordersRegistry.values());
     // filterMode = false;
 
+
+
     constructor() {
         makeAutoObservable(this)
     }
