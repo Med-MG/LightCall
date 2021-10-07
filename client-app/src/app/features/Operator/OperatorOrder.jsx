@@ -25,18 +25,24 @@ function OperatorOrder() {
     },[] );
   
     useEffect(() => {
-      const interval = setInterval(() => setTimer(timer - 1), 1000);
+
+      if(assignedOrder){
+        const interval = setInterval(() => setTimer(timer - 1), 1000);
       localStorage.setItem("timer", timer )
+
       if(timer == 0){
         setTimer(100)
-        InAssigneOrder(assignedOrder?.id);
         OperateurStatus();
         clearInterval(interval);
         localStorage.removeItem("timer");
+        InAssigneOrder(assignedOrder?.id);
+
       }
       return () => {
         clearInterval(interval);
       };
+      }
+
     }, [timer]);
  
 
@@ -83,14 +89,13 @@ function OperatorOrder() {
 
     if(assignedOrder == undefined) return( <div className="card p-2 order-card ">
     <div className="card-body">
-      <h1 className="text-center" >There no orders Assigned</h1>
+      <h1 className="text-center" >There is no orders Assigned</h1>
       </div>
       </div>)
 
     return (
 
-      <div className="card p-2 order-card ">
-        
+      <div className="card p-2 order-card">
       <div className="card-body">
       <h2 className={`new-order-text text-center mb-3 ${!isAnimated ? "" : "animated"}`} >New Order</h2>
             <div  className="d-flex text-center justify-content-around align-items-center new-order" >

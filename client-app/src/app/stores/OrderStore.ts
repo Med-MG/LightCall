@@ -16,6 +16,8 @@ export default class OrderStore {
     assignedOrder: Order | undefined = undefined;
     statistics : Statistic | undefined = undefined;
 
+
+
     constructor() {
         makeAutoObservable(this)
     }
