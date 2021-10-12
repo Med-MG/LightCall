@@ -136,13 +136,10 @@ function SmsForm(props : any) {
 
                       if(selectedSms){
 
-                        
-                      
-
                         setSelectedProject((selectedSms.project as Project).id)
                         
                         if(project.id == selectedProject)
-                         return(
+                          return(
                           <option key={project.id} selected  value={project.id}> {project.project_Type}</option>)
                           else
                           return(

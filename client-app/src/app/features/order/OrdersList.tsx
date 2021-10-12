@@ -9,42 +9,37 @@ import {  useStore } from '../../stores/Store'
 
 function OrdersList() {
 
-  const {orderStore , projectStore ,statusStore} = useStore();
+  const {orderStore , projectStore ,statusStore , productStore , cityStore} = useStore();
     //filter
-  const [orderId , setOrder] =  useState(["" , ""]);
+  const [filters , setfilters] =  useState(new Map());
   const [Allorder , setAllorder ] =  useState(orderStore.orders);
+  const {status  , loadStatus   } = statusStore
+  const {products , loadProducts    } = productStore
+  const {cities  , laodCities   } = cityStore
+  const {projects , loadProjects } = projectStore;
 
-  //get all project
-    const {projects} = projectStore;
-    var ProjecttName=[{}]
-
-    useEffect(()=>{
-      projectStore.loadProjects();
-    } , [projectStore])
-
-    projects.map(project =>{
-      ProjecttName.push({
-        value:project.id,
-        label:project.project_Type
-      })
-    })
+  
 
   useEffect(()=>{
       orderStore.loadOrders()
-      statusStore.loadStatus()
-  } , [orderStore , statusStore])
+      loadStatus()
+      loadProjects();
+      loadProducts()
+      laodCities()
 
-  const handleSearch = () => {
-    // console.log('ffjfjf',orderStore.orders);
-    // setAllorder(orderStore.orders);
-    // console.log("deeee",Allorder)
-    console.log('ddddd',orderId);
-    orderStore.orders= orderId;
-    // console.log(orderId)
-    // setAllorder(Allorder.filter(x => x.orderId == orderId))
-    // console.log(Allorder)
+  } , [orderStore , statusStore , projectStore])
+
+  const handleSearch = (e) => {
+
+    if(e.target.value == '' || e.target.value == '-1' ){
+      filters.delete(e.target.name)
+    }else{
+      filters.set(e.target.name , e.target.value)
+    }
+
+   orderStore.orders = filters ;
+
   }
-
   
 
 if(orderStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
@@ -52,19 +47,48 @@ if(orderStore.loadingInitial) return( <div className='d-flex justify-content-cen
     return (
         <div>
         
-          <div className="card mt-4">
-                  <div>
-                    <input type="text" placeholder="select Project" name="ProjectName" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
-                    {/* <Select options={ProjecttName} placeholder="select Project" name="ProjectName" onChange={(e) => setOrder([e?.value , e.target.name])} /> */}
-                    {/* <input type="date" placeholder="YY/MM/DD" name="Date" onChange={(e) => setOrder([e.target.value , e.target.name])}/> */}
-                    <input type="text" placeholder="Customer" name="Costumer" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
+        <div  >
+        <div className="d-flex justify-content-around mb-3 " >
+                  <select className="form-control mr-4 " name="project" onChange={(e) => handleSearch(e)} >
+                  <option key={0}  value={-1}> Select Project</option>
+                      {projects.map((pro) =>{
+                      return <option key={pro.id}  value={pro.id}> {pro.project_Type}</option>
+                      })}
+                      </select>
 
-                    <input type="text" placeholder="Phone" name="Phone" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
-                    <input type="text" placeholder="Select Status" name="OrderStatus" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
-                    <input type="text" placeholder="select City" name="City" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
-                    <input type="text" placeholder="select Product" name="Product" onChange={(e) => setOrder([e.target.value , e.target.name])}/>
-                    <button onClick={handleSearch}>Search</button>
+                    <input type="text" className="form-control  mr-4 " placeholder="Customer" name="costumer" onChange={(e) => handleSearch(e)}/>
+
+                    <input type="text" className="form-control " placeholder="Phone" name="phone" onChange={(e) => handleSearch(e) }/>
+                    
+                    </div>
+                    <div className="d-flex justify-content-around  " >
+                      <select className="form-control  mr-4" name="status" onChange={(e) => handleSearch(e)} >
+                      <option key={0}  value={-1}> Select Status</option>
+                      {status.map((status) =>{
+                      return <option key={status.id}  value={status.id}> {status.statusType}</option>
+                      })}
+                      </select>
+       
+                      <select className="form-control  mr-4" name="city" onChange={(e) => handleSearch(e)} >
+                      <option key={0}  value={-1}> Select City</option>
+                      {cities.map((city) =>{
+                      return <option key={city.id}  value={city.cityName}> {city.cityName}</option>
+                      })}
+                      </select>
+
+                      <select className="form-control" name="product" onChange={(e) => handleSearch(e)} >
+                      <option key={0}  value={-1}> Select Product</option>
+                      {products.map((pro) =>{
+                      return <option key={pro.id}  value={pro.id}> {pro.name}</option>
+                      })}
+                      </select>
+                      </div>
+
+                    {/* <button onClick={handleSearch}>Search</button> */}
                   </div>
+        
+          <div className="card mt-4">
+
                   <div className="card-body">
                     <table className="table">
                       <thead>
@@ -75,19 +99,18 @@ if(orderStore.loadingInitial) return( <div className='d-flex justify-content-cen
                           <th scope="col">Product</th>
                           <th scope="col">Price</th>
                           <th scope="col">Order Status</th>
-
                           <th scope="col">Actions</th>
 
                         </tr>
                       </thead>
                       <tbody>
                       
-                     <OrderRow allorder={Allorder}/>
+                    <OrderRow />
 
                       </tbody>
                     </table>
                   </div>
-               
+              
                 </div>  
         </div>
     );

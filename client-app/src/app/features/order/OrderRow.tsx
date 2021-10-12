@@ -4,11 +4,9 @@ import { ChangeEvent } from 'react';
 import { Order } from '../../models/Order';
 import { useStore } from '../../stores/Store';
 
-interface props{
-  allorder : Order[];
-}
 
-function OrderRow(props : any) {
+
+function OrderRow( ) {
 
   const [target, setTarget] = useState('');
   const {orderStore , statusStore} = useStore();
@@ -16,8 +14,6 @@ function OrderRow(props : any) {
   const {status  , statusRegistry  } = statusStore
   console.log(orders);
 
-  
-   
 
   const handleOrderDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
     setTarget(id);

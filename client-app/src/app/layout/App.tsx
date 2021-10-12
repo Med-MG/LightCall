@@ -53,7 +53,6 @@ function App() {
 
   if(!appLoaded) return( <div className='d-flex justify-content-center' > <Lottie  animationData={loaderAnimation} /> </div>)
 
-  
   return (
     <>
     <ToastContainer 
@@ -75,7 +74,6 @@ function App() {
           <Route path='/login' component={LoginPage} />
           <Route path='/RestrictedAccess' component={Page403} />
           <Route path='/server-error' component={ServerError} />
-          
           <Route path='/admin/:path?' exact>
               <AdminLayout>
                 <Switch>
@@ -88,7 +86,6 @@ function App() {
                   <PrivateAdminRoute path="/operateur" component={Operator}/>  
                   <PrivateAdminRoute path='/admin/manageOperators' component={ManageOperator} />
                   <PrivateAdminRoute path='/admin/profile' component={Profile} />
-                  
                   <Route path="*" >
                     <Redirect to="/404" />
                   </Route> 
@@ -120,11 +117,9 @@ function App() {
                   <PublicRoute path="/user/orders" component={Orders}  />
                   <PublicRoute path="/user/orderssheet" component={OrderSheet} />
                   <PublicRoute path="/user/projects" component={Projects}   />  
-                  {/* Product Route */}
                   <PublicRoute path="/user/products/:id" component={ProductForm}   />
                   <PublicRoute path="/user/products" component={Product}   />
                   <PublicRoute path="/user/upsell" component={Upsell} /> 
-
                   <Route path="/user/errTest" component={TestError} />
                   <Route path="/user/profile" component={Profile} />
                   <Route path="*" >

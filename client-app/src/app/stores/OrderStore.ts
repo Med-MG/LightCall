@@ -5,6 +5,8 @@ import { v4 as uuid } from 'uuid';
 import { Order } from '../models/Order';
 import { Statistic } from '../models/Statistic';
 import { OrderSheet } from '../models/OrderSheet';
+import { array } from 'yup/lib/locale';
+import { Product } from '../models/Product';
 
 export default class OrderStore {
 
@@ -24,32 +26,58 @@ export default class OrderStore {
         makeAutoObservable(this)
     }
 
+    
+
     get orders() {
-        // return Array.from(this.ordersRegistry.values());
+      
         return this.orderFiler;
     }
 
-    set orders(order : any){
-        // const AllOrder = Array.from(this.ordersRegistry.values());
-        // AllOrder.filter(x => x.orderId = order)
-        // this.orderFiler = AllOrder;
-        console.log(order[0])
-        switch (order[1]) {
-            case 'ProjectName':
-                this.orderFiler.filter(x => x.project.project_Type == order[0])
-                break;
-            case 'Costumer':
-                this.orderFiler = this.orderFiler.filter(x => x.customer?.fullName == order[0])
-                console.log('frfr',this.orderFiler)
-                // this.orderFiler = AllOrder;
-                break;
-            case 'Phone':
-                this.orderFiler.filter(x => x.customer.phone == order[0])
-                break;
-        
-            default:
-                break;
-        }
+    set orders(filters : any){
+
+  this.orderFiler = Array.from(this.ordersRegistry.values())
+
+        for (let filter of filters ) {
+            
+
+            switch (filter[0]) {
+                case 'project':
+                    this.orderFiler =  this.orderFiler.filter(x => x.project.id == filter[1])
+                    break;
+
+                case 'status':
+
+                    this.orderFiler =  this.orderFiler.filter(x => x.status.id == filter[1])
+                    break;
+
+                case 'costumer':
+
+                    this.orderFiler = this.orderFiler.filter(x => x.customer?.fullName.toLowerCase().includes(filter[1].toLowerCase()) )
+                
+                    break;
+                case 'phone':
+                    this.orderFiler =  this.orderFiler.filter(x => x.customer.phone.toLowerCase().includes(filter[1].toLowerCase()) )
+                    break;
+
+                case 'city':
+                    this.orderFiler =  this.orderFiler.filter(x => x.customer.fullAdresse.toUpperCase().includes(filter[1].toLowerCase()) )
+                    break;
+
+                case 'product':
+                    this.orderFiler =  this.orderFiler.filter(x => this.checkProduct(x.product , filter[1]))
+                    break;
+            
+                default:
+                    break;
+            }
+          }
+
+    }
+
+    checkProduct =  (products : Product[] , productid) => {
+        let exist = false ;
+        products.forEach(p => p.id == productid ? exist = true : null  )
+        return exist
     }
 
     loadOrders = async () => {
