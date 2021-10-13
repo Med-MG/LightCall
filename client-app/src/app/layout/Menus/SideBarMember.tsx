@@ -28,10 +28,10 @@ const SideBarMember = () => {
                 <Link to="/user/upsell" className="nav-link" id="upsellManager" ><i className="fas fa-user-secret"></i> <span>Upsell Manager</span></Link>
             </li>
             <li className="">
-                <Link to="/whatsappTemplate" className="nav-link" id="whatsappTemplate" ><i className="fas fa-user-secret"></i> <span>Whatsapp Template</span></Link>
+                <Link to="/user/whatsapp" className="nav-link" id="whatsappTemplate" ><i className="fas fa-user-secret"></i> <span>Whatsapp Template</span></Link>
             </li>
             <li className="">
-                <Link to="/smsCampaign" className="nav-link" id="smsCampaign" ><i className="fas fa-sms"></i> <span>SMS</span></Link>
+                <Link to="/user/sms" className="nav-link" id="smsCampaign" ><i className="fas fa-sms"></i> <span>SMS</span></Link>
             </li>
             <li className="">
                 <Link to="/ivruser" className="nav-link" id="ivruser" ><i className="fas fa-user-secret"></i> <span>IVR System</span></Link>

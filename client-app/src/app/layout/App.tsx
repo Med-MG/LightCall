@@ -120,6 +120,8 @@ function App() {
                   <PublicRoute path="/user/products/:id" component={ProductForm}   />
                   <PublicRoute path="/user/products" component={Product}   />
                   <PublicRoute path="/user/upsell" component={Upsell} /> 
+                  <PublicRoute path="/user/sms" component={Sms} /> 
+                  <PublicRoute path="/user/whatsapp" component={WhatTemp} /> 
                   <Route path="/user/errTest" component={TestError} />
                   <Route path="/user/profile" component={Profile} />
                   <Route path="*" >
